@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SiteSettings, Statistic
+from .models import SiteSettings, Statistic, TrustedClient
 
 
 class SiteSettingsSerializer(serializers.ModelSerializer):
@@ -10,6 +10,7 @@ class SiteSettingsSerializer(serializers.ModelSerializer):
             'tagline',
             'hero_headline',
             'hero_subheadline',
+            'hero_video_url',
             'footer_description',
             'general_email',
             'support_email',
@@ -34,5 +35,21 @@ class StatisticSerializer(serializers.ModelSerializer):
             'value',
             'suffix',
             'description',
+            'display_order',
+        ]
+
+
+class TrustedClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrustedClient
+        fields = [
+            'id',
+            'name',
+            'category',
+            'tag',
+            'summary',
+            'image',
+            'image_url',
+            'link_url',
             'display_order',
         ]

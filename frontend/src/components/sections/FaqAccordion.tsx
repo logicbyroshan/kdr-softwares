@@ -123,3 +123,4 @@ export const FaqAccordion: React.FC = () => {
     </section>
   );
 };
+

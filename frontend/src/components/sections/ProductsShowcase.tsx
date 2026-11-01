@@ -379,3 +379,4 @@ export const ProductsShowcase: React.FC = () => {
     </section>
   );
 };
+

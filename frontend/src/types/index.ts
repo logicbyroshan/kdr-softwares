@@ -3,6 +3,7 @@ export interface SiteSettings {
   tagline: string;
   hero_headline: string;
   hero_subheadline: string;
+  hero_video_url?: string;
   footer_description: string;
   general_email: string;
   support_email: string;
@@ -15,6 +16,18 @@ export interface SiteSettings {
   meta_title: string;
   meta_description: string;
   updated_at: string;
+}
+
+export interface TrustedClientCard {
+  id: number;
+  name: string;
+  category: string;
+  tag: string;
+  summary: string;
+  image: string | null;
+  image_url?: string;
+  link_url: string;
+  display_order: number;
 }
 
 export interface Statistic {
@@ -152,3 +165,4 @@ export interface EnquiryResponse {
   id?: number;
   errors?: Record<string, string[]>;
 }
+

@@ -28,3 +28,4 @@ class PricingPlanSerializer(serializers.ModelSerializer):
         if not obj.features:
             return []
         return [f.strip() for f in obj.features.split('\n') if f.strip()]
+

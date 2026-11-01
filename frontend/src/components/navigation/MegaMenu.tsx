@@ -95,3 +95,4 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ onClose }) => {
     </div>
   );
 };
+

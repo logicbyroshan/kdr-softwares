@@ -28,3 +28,4 @@ class PortfolioProjectSerializer(serializers.ModelSerializer):
         if not obj.technologies:
             return []
         return [t.strip() for t in obj.technologies.split(',') if t.strip()]
+

@@ -15,3 +15,4 @@ class FAQSerializer(serializers.ModelSerializer):
             'category_display',
             'display_order',
         ]
+

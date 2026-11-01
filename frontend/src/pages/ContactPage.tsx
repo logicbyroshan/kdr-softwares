@@ -28,3 +28,4 @@ export const ContactPage: React.FC = () => {
     </div>
   );
 };
+

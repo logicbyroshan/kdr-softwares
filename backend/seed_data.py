@@ -9,7 +9,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kdr_backend.settings')
 django.setup()
 
-from apps.core.models import SiteSettings, Statistic
+from apps.core.models import SiteSettings, Statistic, TrustedClient
 from apps.products.models import Product, ProductFeature
 from apps.services.models import Service, ServiceBenefit
 from apps.portfolio.models import PortfolioProject
@@ -77,6 +77,40 @@ def seed():
         is_published=True
     )
     print("  [OK] Statistics seeded")
+
+    # 2.1 Trusted Client Cards
+    TrustedClient.objects.all().delete()
+    TrustedClient.objects.create(
+        name="Commercial ID Printing Agency Partner",
+        category="Commercial Agency",
+        tag="100k+ Cards Workflow",
+        summary="Commercial agency handling 30+ schools and colleges using CardFlow for automated data intake, photo extraction, and CorelDRAW print packages.",
+        image_url="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&q=80",
+        link_url="/products/cardflow",
+        display_order=1,
+        is_published=True
+    )
+    TrustedClient.objects.create(
+        name="Educational Campus Roster Network",
+        category="Institutional Client",
+        tag="Multi-Institution Portal",
+        summary="Academic verification portals managing tens of thousands of student records, duplicate elimination, and parent approval sign-offs.",
+        image_url="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=300&q=80",
+        link_url="/products/cardflow",
+        display_order=2,
+        is_published=True
+    )
+    TrustedClient.objects.create(
+        name="Corporate Identification & Logistics Alliance",
+        category="Enterprise Partner",
+        tag="Tailored Custom Software",
+        summary="Custom enterprise software and Android mobile apps for frontline verification, photo capture, and high-security PostgreSQL integration.",
+        image_url="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=300&q=80",
+        link_url="/services/custom-software",
+        display_order=3,
+        is_published=True
+    )
+    print("  [OK] Trusted Client Cards seeded")
 
     # 3. Products
     Product.objects.all().delete()

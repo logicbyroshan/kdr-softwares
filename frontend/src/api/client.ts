@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   SiteSettings,
   Statistic,
+  TrustedClientCard,
   Product,
   Service,
   PortfolioProject,
@@ -27,7 +28,8 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   company_name: 'KDR Softwares',
   tagline: 'Practical Software Products & Custom Technology Solutions',
   hero_headline: 'We turn complex operations into powerful digital solutions.',
-  hero_subheadline: 'From innovative software products to custom-built technology, we help businesses simplify operations, work smarter and grow through technology.',
+  hero_subheadline: 'From innovative software products like CardFlow to custom-built enterprise systems, we help businesses simplify operations, eliminate bottlenecks and scale with confidence.',
+  hero_video_url: 'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-code-31913-large.mp4',
   footer_description: 'KDR Softwares develops practical software products and custom technology solutions that help businesses simplify complex operations, improve productivity and scale with confidence.',
   general_email: 'contact@kdrsoftwares.in',
   support_email: 'support@kdrsoftwares.in',
@@ -41,6 +43,42 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   meta_description: 'KDR Softwares builds practical software products like CardFlow and provides high-performance custom software, web, mobile, and AI solutions.',
   updated_at: new Date().toISOString(),
 };
+
+export const FALLBACK_TRUSTED_CLIENTS: TrustedClientCard[] = [
+  {
+    id: 1,
+    name: 'Commercial ID Printing Agency Partner',
+    category: 'Commercial Agency',
+    tag: '100k+ Cards Workflow',
+    summary: 'Commercial agency handling 30+ schools and colleges using CardFlow for automated data intake, photo extraction, and CorelDRAW print packages.',
+    image: null,
+    image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&q=80',
+    link_url: '/products/cardflow',
+    display_order: 1,
+  },
+  {
+    id: 2,
+    name: 'Educational Campus Roster Network',
+    category: 'Institutional Client',
+    tag: 'Multi-Institution Portal',
+    summary: 'Academic verification portals managing tens of thousands of student records, duplicate elimination, and parent approval sign-offs.',
+    image: null,
+    image_url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=300&q=80',
+    link_url: '/products/cardflow',
+    display_order: 2,
+  },
+  {
+    id: 3,
+    name: 'Corporate Identification & Logistics Alliance',
+    category: 'Enterprise Partner',
+    tag: 'Tailored Custom Software',
+    summary: 'Custom enterprise software and Android mobile apps for frontline verification, photo capture, and high-security PostgreSQL integration.',
+    image: null,
+    image_url: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=300&q=80',
+    link_url: '/services/custom-software',
+    display_order: 3,
+  },
+];
 
 export const FALLBACK_STATS: Statistic[] = [
   {
@@ -365,6 +403,25 @@ export async function getStatistics(): Promise<Statistic[]> {
   }
 }
 
+export async function getTrustedClients(): Promise<TrustedClientCard[]> {
+  try {
+    const res = await apiClient.get<TrustedClientCard[]>('/trusted-clients/');
+    return res.data.length ? res.data : FALLBACK_TRUSTED_CLIENTS;
+  } catch (error) {
+    return FALLBACK_TRUSTED_CLIENTS;
+  }
+}
+
+export async function addTrustedClient(payload: Partial<TrustedClientCard>): Promise<{ success: boolean; data?: TrustedClientCard }> {
+  try {
+    const res = await apiClient.post<{ success: boolean; data: TrustedClientCard }>('/trusted-clients/', payload);
+    return res.data;
+  } catch (error) {
+    console.error('Failed to add trusted client card:', error);
+    throw error;
+  }
+}
+
 export async function getProducts(): Promise<Product[]> {
   try {
     const res = await apiClient.get<Product[]>('/products/');
@@ -458,3 +515,4 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<EnquiryRes
   const res = await apiClient.post<EnquiryResponse>('/enquiries/', payload);
   return res.data;
 }
+

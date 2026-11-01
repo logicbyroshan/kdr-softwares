@@ -9,7 +9,13 @@ class SiteSettings(models.Model):
         default="We turn complex operations into powerful digital solutions."
     )
     hero_subheadline = models.TextField(
-        default="From innovative software products to custom-built technology, we help businesses simplify operations, work smarter and grow through technology."
+        default="From innovative software products like CardFlow to custom-built enterprise systems, we help businesses simplify operations, eliminate bottlenecks and scale with confidence."
+    )
+    hero_video_url = models.CharField(
+        max_length=500,
+        blank=True,
+        default="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-code-31913-large.mp4",
+        help_text="URL to an MP4 video for the hero background. Leave blank or use default for technical motion loop."
     )
     footer_description = models.TextField(
         default="KDR Softwares develops practical software products and custom technology solutions that empower organizations to automate workflows and scale with confidence."
@@ -31,7 +37,7 @@ class SiteSettings(models.Model):
         default="KDR Softwares — Software Products & Custom Technology Solutions"
     )
     meta_description = models.TextField(
-        default="KDR Softwares develops practical software products like CardFlow and provides high-performance custom software, web, mobile, and AI solutions for businesses."
+        default="KDR Softwares builds practical software products like CardFlow and provides high-performance custom software, web, mobile, and AI solutions for businesses."
     )
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -67,3 +73,29 @@ class Statistic(models.Model):
 
     def __str__(self):
         return f"{self.label}: {self.value} {self.suffix}"
+
+
+class TrustedClient(models.Model):
+    """
+    Manageable cards displayed docked below the hero section.
+    Can showcase verified production partners, commercial agency clients,
+    or key operational use cases.
+    """
+    name = models.CharField(max_length=150, help_text="Client or partner name (e.g. Commercial ID Production Agency)")
+    category = models.CharField(max_length=80, default="Featured Partner", help_text="Category tag (e.g. Featured Partner, Commercial Agency, Production Client)")
+    tag = models.CharField(max_length=80, default="100k+ Cards Workflow", help_text="Metric badge or highlight (e.g. 100k+ Cards, CorelDRAW Export)")
+    summary = models.TextField(help_text="Concise description of the client deployment or capability")
+    image = models.ImageField(upload_to='clients/', blank=True, null=True, help_text="Thumbnail image or logo")
+    image_url = models.CharField(max_length=500, blank=True, help_text="Optional external image or fallback asset URL")
+    link_url = models.CharField(max_length=255, default="/products/cardflow", help_text="Target URL or page link")
+    display_order = models.PositiveIntegerField(default=0)
+    is_published = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['display_order', 'id']
+        verbose_name = "Trusted Client Card"
+        verbose_name_plural = "Trusted Client Cards"
+
+    def __str__(self):
+        return f"{self.name} [{self.category}]"

@@ -228,3 +228,4 @@ cd frontend
 npm run build
 ```
 Generates an optimized, minified production bundle in `frontend/dist/`.
+

@@ -9,7 +9,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # App views
-from apps.core.views import SiteSettingsView, StatisticListView
+from apps.core.views import SiteSettingsView, StatisticListView, TrustedClientListView
 from apps.products.views import ProductListView, ProductDetailView
 from apps.services.views import ServiceListView, ServiceDetailView
 from apps.portfolio.views import PortfolioListView, PortfolioDetailView
@@ -21,6 +21,7 @@ from apps.enquiries.views import EnquiryCreateView
 api_v1_patterns = [
     path('site-settings/', SiteSettingsView.as_view(), name='api-site-settings'),
     path('statistics/', StatisticListView.as_view(), name='api-statistics'),
+    path('trusted-clients/', TrustedClientListView.as_view(), name='api-trusted-clients'),
     path('products/', ProductListView.as_view(), name='api-products-list'),
     path('products/<slug:slug>/', ProductDetailView.as_view(), name='api-products-detail'),
     path('services/', ServiceListView.as_view(), name='api-services-list'),

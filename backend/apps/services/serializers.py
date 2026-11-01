@@ -31,3 +31,4 @@ class ServiceSerializer(serializers.ModelSerializer):
             'benefits',
             'created_at',
         ]
+

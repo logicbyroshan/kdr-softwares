@@ -19,3 +19,4 @@ class TestimonialSerializer(serializers.ModelSerializer):
             'display_order',
             'created_at',
         ]
+

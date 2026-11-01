@@ -3,45 +3,22 @@ import {
   Play, 
   Pause, 
   ArrowRight, 
-  CheckCircle2, 
-  Plus, 
-  ExternalLink, 
-  Building2, 
-  Layers, 
-  Maximize2, 
-  ShieldCheck, 
-  Sparkles,
-  X,
-  Loader2
+  CheckCircle2 
 } from 'lucide-react';
 import { Container } from '../common/Container';
 import { Button } from '../common/Button';
-import { Badge } from '../common/Badge';
-import { getTrustedClients, addTrustedClient, getSiteSettings } from '../../api/client';
+import { getTrustedClients, getSiteSettings } from '../../api/client';
 import { TrustedClientCard, SiteSettings } from '../../types';
 
 export const HeroSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [trustedClients, setTrustedClients] = useState<TrustedClientCard[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  // Form state for adding a new trusted client card
-  const [newClient, setNewClient] = useState({
-    name: '',
-    category: 'Commercial Agency',
-    tag: 'Verified Client',
-    summary: '',
-    image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&q=80',
-    link_url: '/products/cardflow',
-  });
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Load site settings and trusted client cards
+  // Load site settings and trusted client cards from backend
   useEffect(() => {
     getSiteSettings().then((s) => setSettings(s)).catch(() => {});
     getTrustedClients().then((data) => setTrustedClients(data)).catch(() => {});
@@ -106,7 +83,7 @@ export const HeroSection: React.FC = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle engineering grid
+      // Subtle engineering grid lines
       ctx.strokeStyle = 'rgba(59, 130, 246, 0.07)';
       ctx.lineWidth = 1;
       const gridSize = 45;
@@ -185,41 +162,10 @@ export const HeroSection: React.FC = () => {
     };
   }, [isPlaying]);
 
-  // Handle client creation from the UI
-  const handleAddClientSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newClient.name.trim() || !newClient.summary.trim()) return;
-
-    setIsSubmitting(true);
-    try {
-      const res = await addTrustedClient(newClient);
-      if (res.data) {
-        setTrustedClients((prev) => [res.data!, ...prev]);
-      }
-      setSubmitSuccess(true);
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setShowAddModal(false);
-        setNewClient({
-          name: '',
-          category: 'Commercial Agency',
-          tag: 'Verified Client',
-          summary: '',
-          image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&q=80',
-          link_url: '/products/cardflow',
-        });
-      }, 1500);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const defaultVideoUrl = settings?.hero_video_url || "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-code-31913-large.mp4";
 
   return (
-    <section className="relative bg-[#07090E] text-white overflow-hidden pt-28 pb-12 lg:pt-36 lg:pb-16 border-b border-slate-800">
+    <section className="relative bg-[#07090E] text-white pt-28 pb-24 sm:pb-28 lg:pt-36 lg:pb-32 border-b border-slate-800">
       {/* =========================================================================
           BACKGROUND VIDEO & 3D TECHNICAL CAD OVERLAY (Inspired by PTC)
           ========================================================================= */}
@@ -261,12 +207,12 @@ export const HeroSection: React.FC = () => {
         <span className="text-cyan-400 font-semibold">Z ~10.625</span> | Coordinates Locked
       </div>
 
-      <div className="hidden lg:block absolute right-72 bottom-48 font-mono text-[10px] text-slate-400 pointer-events-none z-10 select-none bg-slate-900/60 px-2.5 py-1 rounded border border-slate-700/50">
+      <div className="hidden lg:block absolute right-72 bottom-36 font-mono text-[10px] text-slate-400 pointer-events-none z-10 select-none bg-slate-900/60 px-2.5 py-1 rounded border border-slate-700/50">
         <span className="text-cyan-400 font-semibold">X -23.446</span> | Vector Raster Pass
       </div>
 
       {/* Video Play / Pause Floating Toggle (Just like PTC bottom-right pause button) */}
-      <div className="absolute right-6 top-28 lg:top-auto lg:bottom-44 z-20">
+      <div className="absolute right-6 top-28 lg:top-auto lg:bottom-24 z-20">
         <button
           type="button"
           onClick={togglePlay}
@@ -340,42 +286,23 @@ export const HeroSection: React.FC = () => {
             </Button>
           </div>
         </div>
+      </Container>
 
-        {/* =========================================================================
-            DOCKED CARDS: TRUSTED CLIENTS / PARTNERS / FEATURED CAPABILITIES
-            (Matches the cards docked below the video in the PTC screenshot)
-            ========================================================================= */}
-        <div className="mt-16 lg:mt-24 pt-6 border-t border-slate-800/80">
-          <div className="flex items-center justify-between pb-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                Trusted Client Deployments & Featured Solutions
-              </h3>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setShowAddModal(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/80 border border-cyan-800/60 transition-all shadow-xs"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Add Client / Partner Card</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Horizontal Card Deck */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {trustedClients.map((card) => (
+      {/* =========================================================================
+          DOCKED CARDS: 50% ON THE VIDEO, 50% ON THE NORMAL SECTION BELOW
+          (Matches exact PTC layout from screenshot: sleek, minimal, 50/50 overlap)
+          ========================================================================= */}
+      <div className="absolute left-0 right-0 bottom-0 translate-y-1/2 z-30 pointer-events-none">
+        <Container className="pointer-events-auto">
+          <div className="flex md:grid md:grid-cols-3 gap-4 lg:gap-6 overflow-x-auto no-scrollbar snap-x pb-2 md:pb-0">
+            {trustedClients.slice(0, 3).map((card) => (
               <a
                 key={card.id}
                 href={card.link_url || "/products/cardflow"}
-                className="group p-4 rounded-2xl bg-white text-slate-900 border border-slate-200/90 hover:border-cyan-400 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex gap-4 items-start relative overflow-hidden"
+                className="group flex-1 min-w-[270px] md:min-w-0 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-slate-900 shadow-xl hover:shadow-2xl border border-slate-200/90 hover:border-blue-500/60 transition-all duration-200 flex items-center gap-3.5 hover:-translate-y-0.5"
               >
                 {/* Left Thumbnail Image */}
-                <div className="w-24 h-24 sm:w-28 sm:h-24 rounded-xl overflow-hidden shrink-0 bg-slate-900 relative border border-slate-100">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden shrink-0 bg-slate-900 relative border border-slate-100">
                   <img
                     src={card.image || card.image_url || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&q=80"}
                     alt={card.name}
@@ -385,179 +312,24 @@ export const HeroSection: React.FC = () => {
                   <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors" />
                 </div>
 
-                {/* Right Content */}
-                <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
-                  <div>
-                    <span className="text-[11px] font-bold text-blue-600 block leading-none">
-                      {card.category}
-                    </span>
-                    <h4 className="font-bold text-slate-900 text-xs sm:text-sm mt-1.5 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                      {card.name}
-                    </h4>
-                    <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                      {card.summary}
-                    </p>
-                  </div>
-
-                  <div className="mt-2 pt-1 flex items-center justify-between text-[11px] text-slate-400">
-                    <span className="font-mono text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">
-                      {card.tag}
-                    </span>
-                    <span className="text-blue-600 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-0.5">
-                      Explore <ArrowRight className="w-3 h-3" />
-                    </span>
+                {/* Right Sleek & Minimal Editorial Info */}
+                <div className="min-w-0 flex-1">
+                  <span className="text-[11px] font-bold text-blue-600 block tracking-wide uppercase leading-tight mb-1">
+                    {card.category}
+                  </span>
+                  <h4 className="font-bold text-slate-900 text-xs sm:text-sm leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {card.name}
+                  </h4>
+                  <div className="mt-1 flex items-center gap-1 text-[11px] font-semibold text-slate-500 group-hover:text-blue-600 transition-colors">
+                    <span>{card.tag}</span>
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </a>
             ))}
           </div>
-        </div>
-      </Container>
-
-      {/* =========================================================================
-          ADD TRUSTED CLIENT MODAL (Empowering Users to Add & Manage Client Cards)
-          ========================================================================= */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 relative">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <div>
-                <h3 className="font-extrabold text-slate-900 text-lg">
-                  Add a Trusted Client / Partner Card
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  The new card will immediately dock below the hero video and persist to the database.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowAddModal(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {submitSuccess ? (
-              <div className="py-8 text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-slate-900 text-base">Client Card Added!</h4>
-                <p className="text-xs text-slate-500">Your trusted client card is now live on the homepage.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleAddClientSubmit} className="mt-4 space-y-3.5">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Client / Organization Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Apex Identification Systems"
-                    value={newClient.name}
-                    onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Category Tag *
-                    </label>
-                    <select
-                      value={newClient.category}
-                      onChange={(e) => setNewClient({ ...newClient, category: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="Commercial Agency">Commercial Agency</option>
-                      <option value="Institutional Client">Institutional Client</option>
-                      <option value="Enterprise Partner">Enterprise Partner</option>
-                      <option value="Technology Alliance">Technology Alliance</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Highlight Tag *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. 100k+ Cards / CorelDRAW"
-                      value={newClient.tag}
-                      onChange={(e) => setNewClient({ ...newClient, tag: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Operational Deployment Summary *
-                  </label>
-                  <textarea
-                    required
-                    rows={2}
-                    placeholder="Short summary of the operational problem solved or deployment outcome..."
-                    value={newClient.summary}
-                    onChange={(e) => setNewClient({ ...newClient, summary: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Thumbnail Image URL (Optional)
-                  </label>
-                  <input
-                    type="url"
-                    placeholder="https://images.unsplash.com/..."
-                    value={newClient.image_url}
-                    onChange={(e) => setNewClient({ ...newClient, image_url: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Target Page Link
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="/products/cardflow"
-                    value={newClient.link_url}
-                    onChange={(e) => setNewClient({ ...newClient, link_url: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div className="pt-2 flex items-center justify-end gap-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowAddModal(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="sm"
-                    isLoading={isSubmitting}
-                    withArrow
-                  >
-                    Save & Display Card
-                  </Button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
+        </Container>
+      </div>
     </section>
   );
 };

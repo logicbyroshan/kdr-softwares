@@ -13,7 +13,7 @@ export const TrustSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 bg-white border-b border-slate-200/60">
+    <section className="pt-20 sm:pt-24 lg:pt-28 pb-12 bg-white border-b border-slate-200/60">
       <Container>
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div>

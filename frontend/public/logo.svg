@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="kdr-grad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="50%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#1E1B4B" />
+    </linearGradient>
+    <linearGradient id="kdr-accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#0A0D14"/>
+  <rect x="0.5" y="0.5" width="47" height="47" rx="11.5" stroke="#1E293B"/>
+  <!-- KDR Hexagon / Monogram Symbol -->
+  <path d="M12 14V34M12 24H21M21 14L12 24L21 34" stroke="url(#kdr-grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M26 14V34M26 14C31 14 36 17 36 24C36 31 31 34 26 34" stroke="url(#kdr-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="26" cy="24" r="2.5" fill="#38BDF8"/>
+</svg>

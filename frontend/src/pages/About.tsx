@@ -10,16 +10,27 @@ export const About: React.FC = () => {
       {/* Hero Header */}
       <section className="pb-16 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container>
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 inline-block">
-              About KDR Softwares
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Engineering practical software for real-world operational challenges.
-            </h1>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              We are an independent software product and custom technology engineering company based in Navlakha, Indore, Madhya Pradesh.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="max-w-3xl space-y-4">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 inline-flex items-center gap-2">
+                <img src="/logo.webp" alt="KDR" className="w-3.5 h-3.5 object-contain" />
+                <span>About KDR Softwares</span>
+              </span>
+              <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Engineering practical software for real-world operational challenges.
+              </h1>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+                We are an independent software product and custom technology engineering company based in Navlakha, Indore, Madhya Pradesh.
+              </p>
+            </div>
+            <div className="hidden md:flex shrink-0 p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl items-center justify-center relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-cyan-500/20 pointer-events-none" />
+              <img 
+                src="/logo.webp" 
+                alt="KDR Softwares 3D Logo" 
+                className="w-24 h-24 object-contain filter drop-shadow-[0_4px_20px_rgba(0,102,255,0.4)] group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           </div>
         </Container>
       </section>

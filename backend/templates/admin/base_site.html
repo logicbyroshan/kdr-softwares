@@ -1,0 +1,72 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:"KDR Softwares Admin" }}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+<style>
+  :root {
+    --primary: #0062E3;
+    --secondary: #0A2558;
+    --accent: #00A3FF;
+    --primary-fg: #ffffff;
+    --body-fg: #0f172a;
+    --body-bg: #f8fafc;
+  }
+  #header {
+    background: #070D1A !important;
+    border-bottom: 2px solid #0062E3 !important;
+    padding: 12px 24px !important;
+  }
+  #branding h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+    font-size: 1.15rem !important;
+  }
+  #branding h1 img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 132, 255, 0.45));
+  }
+  #branding h1 a:link, #branding h1 a:visited {
+    color: #ffffff !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .module h2, .module caption, .inline-group h2 {
+    background: #0A2558 !important;
+  }
+  div.breadcrumbs {
+    background: #0F1B33 !important;
+  }
+  .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #0062E3 !important;
+    border-radius: 6px !important;
+  }
+  .button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #0050CA !important;
+  }
+</style>
+{% endblock %}
+
+{% block branding %}
+<div id="branding">
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+      <img src="{% static 'logo.png' %}" alt="KDR Logo">
+      <span>KDR Softwares CMS</span>
+    </a>
+  </h1>
+</div>
+{% endblock %}
+

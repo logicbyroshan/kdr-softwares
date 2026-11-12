@@ -64,9 +64,12 @@ export const AboutSection: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="rounded-2xl bg-white p-7 shadow-card border border-slate-200/80 relative">
               <div className="flex items-center justify-between pb-5 border-b border-slate-100">
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-                  Engineering Tenets
-                </span>
+                <div className="flex items-center gap-2.5">
+                  <img src="/logo.webp" alt="KDR Logo" className="w-6 h-6 object-contain filter drop-shadow-xs" />
+                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500">
+                    Engineering Tenets
+                  </span>
+                </div>
                 <span className="text-xs font-bold text-blue-600">KDR Standard</span>
               </div>
 

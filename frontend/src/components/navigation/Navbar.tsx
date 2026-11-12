@@ -56,16 +56,19 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center justify-between">
             {/* Logo / Wordmark */}
             <Link to="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-0.5">
-              <img 
-                src="/logo.svg" 
-                alt="KDR Softwares" 
-                className="w-9 h-9 rounded-xl shadow-sm transition-transform duration-200 group-hover:scale-105" 
-              />
+              <picture className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
+                <source srcSet="/logo.webp" type="image/webp" />
+                <img 
+                  src="/logo.png" 
+                  alt="KDR Softwares" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,98,227,0.25)] transition-transform duration-300 group-hover:scale-110" 
+                />
+              </picture>
               <div className="flex flex-col">
-                <span className="font-extrabold text-slate-900 tracking-tight text-lg leading-none">
+                <span className="font-extrabold text-slate-900 tracking-tight text-lg leading-none group-hover:text-blue-600 transition-colors">
                   KDR Softwares
                 </span>
-                <span className="text-[10px] font-semibold text-blue-600 tracking-wider uppercase mt-1">
+                <span className="text-[10px] font-bold text-blue-600 tracking-wider uppercase mt-1">
                   Products & Solutions
                 </span>
               </div>

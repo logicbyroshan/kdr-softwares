@@ -192,18 +192,35 @@ export const HeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-[#07090E]/60" />
       </div>
 
-      {/* Engineering Technical Annotation HUD Markers (Matching PTC's Dimension Callouts) */}
-      <div className="hidden lg:block absolute right-16 top-36 font-mono text-[11px] text-cyan-400/80 pointer-events-none z-10 select-none space-y-1 bg-slate-950/70 p-3 rounded-lg border border-cyan-500/20 backdrop-blur-xs">
-        <div className="flex items-center gap-2 text-cyan-300 font-bold">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-          <span>CardFlow Architecture Node</span>
+      {/* Engineering Technical Annotation HUD Markers & 3D Brand Emblem */}
+      <div className="hidden lg:flex flex-col items-end gap-3 absolute right-16 top-28 pointer-events-none z-10 select-none">
+        {/* Glowing 3D Emblem Card */}
+        <div className="p-4 rounded-2xl bg-slate-950/80 border border-blue-500/30 backdrop-blur-md shadow-[0_0_40px_rgba(0,98,227,0.3)] flex items-center gap-4 pointer-events-auto hover:border-blue-400/60 transition-all duration-300">
+          <img 
+            src="/logo.webp" 
+            alt="KDR Softwares 3D Logo" 
+            className="w-16 h-16 object-contain filter drop-shadow-[0_4px_16px_rgba(0,132,255,0.45)]"
+          />
+          <div className="font-mono text-left">
+            <div className="flex items-center gap-2 text-cyan-300 text-xs font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              <span>KDR Softwares Mark</span>
+            </div>
+            <div className="text-slate-400 text-[10px] mt-0.5">Proprietary 3D Identity</div>
+            <div className="text-emerald-400 text-[10px]">Active Platform • v2026.1</div>
+          </div>
         </div>
-        <div className="text-slate-400 text-[10px]">Part: CF-PROD-2026-A1</div>
-        <div className="text-slate-400 text-[10px]">Envelope: (100k+, Multi-Institution, Sync)</div>
-        <div className="text-emerald-400 text-[10px]">Verification: 100% CorelDRAW Compatible</div>
+
+        {/* Technical Callout Node */}
+        <div className="font-mono text-[11px] text-cyan-400/80 space-y-1 bg-slate-950/70 p-3 rounded-lg border border-cyan-500/20 backdrop-blur-xs text-left w-full max-w-[240px]">
+          <div className="text-slate-300 font-bold text-[11px]">CardFlow Architecture Node</div>
+          <div className="text-slate-400 text-[10px]">Part: CF-PROD-2026-A1</div>
+          <div className="text-slate-400 text-[10px]">Envelope: 100k+ Cards Workflow</div>
+          <div className="text-emerald-400 text-[10px]">CorelDRAW Compatible</div>
+        </div>
       </div>
 
-      <div className="hidden lg:block absolute right-32 top-72 font-mono text-[10px] text-slate-400 pointer-events-none z-10 select-none bg-slate-900/60 px-2.5 py-1 rounded border border-slate-700/50">
+      <div className="hidden lg:block absolute right-32 top-80 font-mono text-[10px] text-slate-400 pointer-events-none z-10 select-none bg-slate-900/60 px-2.5 py-1 rounded border border-slate-700/50">
         <span className="text-cyan-400 font-semibold">Z ~10.625</span> | Coordinates Locked
       </div>
 
@@ -234,8 +251,8 @@ export const HeroSection: React.FC = () => {
       <Container className="relative z-10">
         <div className="max-w-3xl space-y-6 pt-4 lg:pt-8">
           {/* Status Badge */}
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-950/80 border border-blue-700/50 text-blue-300 shadow-sm backdrop-blur-xs">
-            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-950/80 border border-blue-700/50 text-blue-200 shadow-sm backdrop-blur-xs">
+            <img src="/logo.webp" alt="KDR Monogram" className="w-4 h-4 object-contain filter drop-shadow-[0_1px_4px_rgba(0,132,255,0.6)]" />
             <span>KDR Softwares — Software Products & Custom Technology</span>
           </div>
 

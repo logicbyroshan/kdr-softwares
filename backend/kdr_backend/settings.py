@@ -144,7 +144,7 @@ USE_TZ = True
 # Static & Media Files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -174,6 +174,8 @@ CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow local Vite dev server in debug mode
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://localhost:5188',
+    'http://127.0.0.1:5188',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://kdrsoftwares.in',

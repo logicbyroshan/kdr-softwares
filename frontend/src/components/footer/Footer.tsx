@@ -16,13 +16,20 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-850">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-5">
-            <Link to="/" className="inline-flex items-center gap-3">
-              <img src="/logo.svg" alt="KDR Softwares" className="w-10 h-10 rounded-xl" />
+            <Link to="/" className="inline-flex items-center gap-3.5 group">
+              <picture className="w-11 h-11 flex items-center justify-center shrink-0">
+                <source srcSet="/logo.webp" type="image/webp" />
+                <img 
+                  src="/logo.png" 
+                  alt="KDR Softwares" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,132,255,0.35)] transition-transform duration-300 group-hover:scale-105" 
+                />
+              </picture>
               <div>
-                <span className="font-extrabold text-white tracking-tight text-xl block leading-tight">
+                <span className="font-extrabold text-white tracking-tight text-xl block leading-tight group-hover:text-cyan-400 transition-colors">
                   KDR Softwares
                 </span>
-                <span className="text-[11px] font-medium text-blue-400 tracking-wider uppercase">
+                <span className="text-[11px] font-semibold text-blue-400 tracking-wider uppercase">
                   Products & Solutions
                 </span>
               </div>

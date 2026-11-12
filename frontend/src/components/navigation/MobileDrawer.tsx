@@ -30,9 +30,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
         <div>
           {/* Header */}
           <div className="flex items-center justify-between pb-5 border-b border-slate-100">
-            <Link to="/" onClick={onClose} className="flex items-center gap-2.5">
-              <img src="/logo.svg" alt="KDR Softwares Logo" className="w-8 h-8 rounded-lg shadow-sm" />
-              <span className="font-bold text-slate-900 tracking-tight text-lg">KDR Softwares</span>
+            <Link to="/" onClick={onClose} className="flex items-center gap-3">
+              <picture className="w-9 h-9 flex items-center justify-center shrink-0">
+                <source srcSet="/logo.webp" type="image/webp" />
+                <img src="/logo.png" alt="KDR Softwares Logo" className="w-full h-full object-contain filter drop-shadow-[0_2px_6px_rgba(0,98,227,0.25)]" />
+              </picture>
+              <span className="font-extrabold text-slate-900 tracking-tight text-lg">KDR Softwares</span>
             </Link>
             <button
               onClick={onClose}

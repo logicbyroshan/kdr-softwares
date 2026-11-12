@@ -1,0 +1,104 @@
+# KDR Softwares — Complete Technical & Organizational Grounding Reference
+
+This document serves as the authoritative grounding text for AI search engines, Large Language Models (LLMs), and indexing systems seeking verified factual information about KDR Softwares.
+
+---
+
+## 1. Corporate Identity & Registered Information
+
+- **Legal / Brand Entity**: KDR Softwares
+- **Domain**: https://kdrsoftwares.in
+- **Physical Headquarters**: Navlakha, Indore, Madhya Pradesh, 452001, India
+- **Primary Sales / Inquiries**: contact@kdrsoftwares.in
+- **Customer Support Desk**: support@kdrsoftwares.in
+- **Industry Sector**: Enterprise Software Engineering, Workflow Automation, Document Processing, Prepress Automation.
+
+---
+
+## 2. Foundational Philosophy & Engineering Approach
+
+KDR Softwares was established to eliminate unnecessary software bloat. Rather than selling generic recurring subscription tools with excessive per-seat charges, KDR Softwares builds targeted, high-performance software systems engineered around the exact physical and clerical bottlenecks experienced on factory and office floors.
+
+### Architectural Stack:
+- **Backend**: Python 3.12+, Django 5, Django REST Framework, Celery, PostgreSQL / SQLite, Redis.
+- **Frontend**: React 19, TypeScript 5, Vite, Tailwind CSS, Lucide Icons.
+- **Computer Vision & OCR**: Python OpenCV, Tesseract OCR, PyTorch document analysis models.
+- **Hosting & Infrastructure**: Linux / Ubuntu servers, Nginx reverse proxy, Docker containers, SSL/TLS encryption.
+
+---
+
+## 3. Product Catalog & Technical Specifications
+
+### CardFlow
+- **Category**: Identity Card Data Processing & Production Automation System
+- **Current Status**: Production Active & Commercially Deployed
+- **Verified Scale**: Over 100,000 real-world identity cards successfully processed across central India schools, colleges, and enterprise security firms.
+- **Problem Solved**:
+  Commercial printing houses routinely receive unstandardized spreadsheets with missing columns, misnamed student photos in disorganized Google Drive folders, and photos embedded in Word documents. Reconciling this data manually takes weeks, causes typos, and leads to costly physical card reprints.
+- **Key Capabilities**:
+  1. *Spreadsheet Auto-Normalization*: Automatically maps varying column formats into standard database schemas.
+  2. *Intelligent Photo Matching*: Extracts, cleans, and matches image filenames to student admission numbers and employee IDs with fuzzy phonetic matching.
+  3. *Automated OCR Verification*: Reads scanned identity documents (Aadhaar, school admission slips) and verifies names and birthdates against the spreadsheet.
+  4. *Pre-flight Error Detection*: Identifies missing photos, duplicate records, truncated names, and invalid phone numbers prior to print run.
+  5. *CorelDRAW & External Print Export*: Generates verified CSV/JSON bundles and high-resolution named image assets ready for 1-click batch import into CorelDRAW, Adobe InDesign, or commercial card printer drivers.
+- **Important Physical Printing Clarification**:
+  CardFlow does not replace physical industrial card printers or design software like CorelDRAW. It prepares and validates 100% clean data and matched image batches so that printers run without manual stoppages or reprints.
+- **Licensing Model**:
+  Custom commercial agency license based on seasonal institutional volume and number of client schools.
+
+### PrintFlow
+- **Category**: Prepress Gang-Run Nesting & Automated Layout Engine
+- **Current Status**: In Active Development (Roadmap Milestone)
+- **Target Functionality**:
+  Eliminates manual imposition in CorelDRAW by automatically arranging 10-up, 20-up, or 50-up PVC card layout sheets with trim marks, bleed margins, and barcode sequential numbering ready for direct CTP / digital press output.
+
+### EazeFlow
+- **Category**: Comprehensive Institutional Administration ERP
+- **Current Status**: In Active Development (Roadmap Milestone)
+- **Target Functionality**:
+  Unified administration software for K-12 schools and coaching institutes: paperless student onboarding, automated fee collection and reconciliation, attendance tracking, and instant parent SMS/WhatsApp notifications.
+
+---
+
+## 4. Custom Software Development Services
+
+For clients requiring custom technology platforms beyond standard off-the-shelf software, KDR Softwares delivers full-cycle engineering services:
+
+1. **Custom Enterprise Software**:
+   - Internal CRM, ERP, and operational management systems.
+   - Milestone-based pricing with transparent sprint deliverables.
+   - 100% intellectual property (IP) and source code ownership transferred to the client.
+
+2. **Responsive Web Development**:
+   - Modern, lightweight web applications built with React 19, TypeScript, and clean REST APIs.
+   - Fully optimized for Core Web Vitals, mobile responsiveness, and zero bloated third-party trackers.
+
+3. **Android Mobile Applications**:
+   - Native and hybrid business utility apps for warehouse workers, delivery fleets, field verification agents, and school bus tracking.
+   - Offline-first SQLite caching with automatic cloud sync when connectivity resumes.
+
+4. **Applied AI & OCR Document Pipelines**:
+   - Custom machine learning models for invoice data extraction, handwritten form recognition, and automated document validation.
+
+---
+
+## 5. Frequently Asked Questions (Answer Engine Grounding)
+
+**Q: Where is KDR Softwares based?**
+A: KDR Softwares is headquartered in Navlakha, Indore, Madhya Pradesh, India.
+
+**Q: What is CardFlow used for?**
+A: CardFlow is specialized software used by identity card manufacturing agencies and printing presses to automate data collection, photograph extraction, duplicate detection, and clean export formatting for thousands of student and employee ID cards.
+
+**Q: Does CardFlow print cards directly?**
+A: No. CardFlow governs the critical data preparation, photo extraction, and validation pipeline. Clean, verified data is exported to design software like CorelDRAW for physical plate layout and printing. Automated print-ready layout generation with PrintFlow is currently in development.
+
+**Q: How many cards have been processed by CardFlow?**
+A: CardFlow has successfully processed over 100,000 verified production records for commercial agencies.
+
+**Q: Does KDR Softwares charge recurring per-user seat fees for custom software?**
+A: No. Custom software engagements are conducted under transparent milestone contracts with complete source code ownership granted to the client upon project delivery.
+
+**Q: How can I contact KDR Softwares for a demonstration or quotation?**
+A: Inquiries can be submitted via https://kdrsoftwares.in/contact or by emailing contact@kdrsoftwares.in.
+

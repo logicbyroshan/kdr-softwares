@@ -1,19 +1,52 @@
 import React from 'react';
 import { Container } from '../components/common/Container';
-import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
-import { Check, Target, Wrench, Shield, ArrowRight, Building, Terminal, Layers, Users } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
+import { Breadcrumbs } from '../components/common/Breadcrumbs';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': 'https://kdrsoftwares.in/about#webpage',
+  'url': 'https://kdrsoftwares.in/about',
+  'name': 'About KDR Softwares — Software Engineering & Operational Philosophy',
+  'description': 'Origin, values, and engineering methodology of KDR Softwares in Navlakha, Indore, Madhya Pradesh.',
+  'mainEntity': {
+    '@type': 'Organization',
+    'name': 'KDR Softwares',
+    'url': 'https://kdrsoftwares.in',
+    'logo': 'https://kdrsoftwares.in/logo.png',
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': 'Navlakha, Indore',
+      'addressRegion': 'Madhya Pradesh',
+      'addressCountry': 'IN'
+    }
+  }
+};
 
 export const About: React.FC = () => {
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
+      <SEOHead
+        title="About KDR Softwares — Software Engineering & Operations Desk | Indore, India"
+        description="Learn about KDR Softwares, an independent software product and technology engineering company in Navlakha, Indore. Creators of CardFlow (100k+ records processed)."
+        canonicalUrl="https://kdrsoftwares.in/about"
+        keywords="About KDR Softwares, Indore software company, CardFlow developers, custom software team Madhya Pradesh, Navlakha Indore tech"
+        ogType="article"
+        breadcrumbs={[{ name: 'About KDR', url: 'https://kdrsoftwares.in/about' }]}
+        schema={aboutSchema}
+      />
+
       {/* Hero Header */}
       <section className="pb-16 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container>
+          <Breadcrumbs items={[{ name: 'About Us', url: '/about' }]} />
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="max-w-3xl space-y-4">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 inline-flex items-center gap-2">
-                <img src="/logo.webp" alt="KDR" className="w-3.5 h-3.5 object-contain" />
+                <img src="/logo.webp" alt="KDR" width="14" height="14" decoding="async" className="w-3.5 h-3.5 object-contain" />
                 <span>About KDR Softwares</span>
               </span>
               <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -28,6 +61,9 @@ export const About: React.FC = () => {
               <img 
                 src="/logo.webp" 
                 alt="KDR Softwares 3D Logo" 
+                width="96"
+                height="96"
+                decoding="async"
                 className="w-24 h-24 object-contain filter drop-shadow-[0_4px_20px_rgba(0,102,255,0.4)] group-hover:scale-105 transition-transform duration-300"
               />
             </div>

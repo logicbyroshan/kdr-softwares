@@ -1,0 +1,50 @@
+# KDR Softwares
+
+> Practical software products and custom technology engineering company based in Navlakha, Indore, Madhya Pradesh, India.
+
+## Company Identity & Overview
+- **Name**: KDR Softwares
+- **Official Website**: https://kdrsoftwares.in
+- **Headquarters**: Navlakha, Indore, Madhya Pradesh, India (PIN: 452001)
+- **Primary Contact**: contact@kdrsoftwares.in
+- **Technical Support**: support@kdrsoftwares.in
+- **Founding Mission**: Solving high-friction operational bottlenecks for commercial printing, educational institutions, and businesses through robust, pragmatic software architectures.
+
+## Core Products
+
+### 1. CardFlow (Production Active)
+- **Primary Purpose**: Bulk identity card data collection, spreadsheet cleaning, OCR extraction, duplicate detection, and verified export management for commercial printing agencies and schools.
+- **Verified Scale**: Over 100,000 real-world production identity records processed without data collisions.
+- **Physical Printing Integration**: CardFlow handles the entire data, photo matching, and verification workflow. Printing agencies export verified datasets into CorelDRAW or external design suites for physical card layout and plate printing.
+- **Licensing**: Annual agency commercial licenses based on institutional volume.
+- **URL**: https://kdrsoftwares.in/products/cardflow
+
+### 2. PrintFlow (In Active Development)
+- **Primary Purpose**: Automated prepress layout, gang-run nesting, and print-ready card rendering engine to connect digital data directly to large-format commercial printing workflows.
+- **Status**: Roadmap milestone (scheduled for integration testing).
+- **URL**: https://kdrsoftwares.in/products/printflow
+
+### 3. EazeFlow (In Active Development)
+- **Primary Purpose**: School and institutional administration ERP platform providing paperless admissions, automated fee tracking, attendance, and instant parent communication.
+- **Status**: Roadmap milestone.
+- **URL**: https://kdrsoftwares.in/products/eazeflow
+
+## Technology Engineering Services
+- **Custom Software Development**: Bespoke enterprise workflow automation, operational dashboards, and backend architectures built with Python, Django, PostgreSQL, and React. (https://kdrsoftwares.in/services/custom-software)
+- **Web Application Development**: High-performance, responsive web applications engineered with React 19, TypeScript, and modern API standards. (https://kdrsoftwares.in/services/web-development)
+- **Mobile Application Development**: Native and cross-platform Android business applications, barcode scanning tools, and field management apps. (https://kdrsoftwares.in/services/mobile-apps)
+- **Practical AI Solutions & OCR**: Production computer vision, OCR text extraction, automated document validation, and classification pipelines. (https://kdrsoftwares.in/services/ai-solutions)
+
+## Engagement Philosophy
+- **Full Code Ownership**: Milestone-based commercial software delivery with complete client source code ownership; zero recurring per-seat fees.
+- **Truthful Engineering**: Transparent distinction between production-active capabilities and upcoming roadmap milestones.
+
+## Primary Documentation Links
+- Homepage: https://kdrsoftwares.in/
+- About KDR: https://kdrsoftwares.in/about
+- Products Hub: https://kdrsoftwares.in/products
+- Services Hub: https://kdrsoftwares.in/services
+- Selected Portfolio: https://kdrsoftwares.in/portfolio
+- Knowledge Base & FAQ: https://kdrsoftwares.in/faq
+- Engineering Consultation Desk: https://kdrsoftwares.in/contact
+

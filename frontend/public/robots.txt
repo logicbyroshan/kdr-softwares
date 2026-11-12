@@ -1,6 +1,67 @@
+# robots.txt for https://kdrsoftwares.in
+# Technical SEO & AI Search Engine Directives
+
+# 1. Standard Global Search Crawlers
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /api/
+Disallow: /*?*type=*
+Disallow: /*?*plan=*
 
+# 2. Google Search & Google AI Overviews
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: GoogleOther
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 3. Microsoft Bing & Copilot Search
+User-agent: Bingbot
+User-agent: msnbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 4. OpenAI Search & On-Demand Live User Retrieval
+# OAI-SearchBot: Used for live indexing and surfacing in ChatGPT Search
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# ChatGPT-User: User-initiated web browsing and real-time citation requests
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# GPTBot: OpenAI foundation model training
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 5. Perplexity AI Search & Grounding
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 6. Anthropic Claude Search & Citations
+User-agent: ClaudeBot
+User-agent: Claude-Web
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 7. Apple Intelligence & Siri Search
+User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# 8. Sitemap Location
 Sitemap: https://kdrsoftwares.in/sitemap.xml
-

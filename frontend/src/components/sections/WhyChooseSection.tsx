@@ -18,8 +18,8 @@ export const WhyChooseSection: React.FC = () => {
       highlight: 'Code Longevity',
     },
     {
-      title: 'Full Source Ownership',
-      description: 'You are never trapped in restrictive per-seat subscription models for bespoke work. Your organization owns its codebase, schemas, and assets.',
+      title: 'Full Source Code Ownership',
+      description: 'You are never trapped in restrictive per-seat subscription models for bespoke work. Your organization owns its codebase, schemas, and assets outright.',
       icon: Database,
       highlight: 'Zero Lock-In',
     },
@@ -33,7 +33,7 @@ export const WhyChooseSection: React.FC = () => {
       title: 'Direct Engineering Access',
       description: 'Work directly with the architects and engineers writing your software, ensuring nuance is understood and changes happen promptly without middle-management friction.',
       icon: HeartHandshake,
-      highlight: 'Responsive Collaboration',
+      highlight: 'Direct Collaboration',
     },
     {
       title: 'Honest Commitments & Verifiable Truth',
@@ -44,7 +44,7 @@ export const WhyChooseSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-white border-b border-slate-200/60">
+    <section className="py-20 md:py-28 bg-white border-b border-slate-200/80">
       <Container>
         <SectionHeading
           badge="Why KDR Softwares"
@@ -59,19 +59,19 @@ export const WhyChooseSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="p-7 rounded-2xl bg-slate-50/60 border border-slate-200/80 hover:bg-white hover:border-blue-200 hover:shadow-card transition-all duration-200 flex flex-col justify-between"
+                className="p-7 sm:p-8 rounded-3xl bg-slate-50/70 border border-slate-200/90 hover:bg-white hover:border-blue-300 hover:shadow-card transition-all duration-200 flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0062E3] flex items-center justify-center group-hover:scale-105 transition-transform" aria-hidden="true">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50/80 px-2 py-0.5 rounded border border-blue-100">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#0062E3] bg-blue-50/90 px-2.5 py-0.5 rounded-full border border-blue-200/80">
                       {diff.highlight}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 leading-snug">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
                     {diff.title}
                   </h3>
 
@@ -87,4 +87,3 @@ export const WhyChooseSection: React.FC = () => {
     </section>
   );
 };
-

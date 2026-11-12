@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container } from '../components/common/Container';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
@@ -7,17 +7,29 @@ import { Badge } from '../components/common/Badge';
 import { getService } from '../api/client';
 import { Service } from '../types';
 import { 
-  ArrowLeft, 
   CheckCircle2, 
   Code2, 
   Globe, 
   Smartphone, 
-  Sparkles, 
-  ArrowRight, 
-  ShieldCheck, 
-  Terminal, 
-  Layers 
+  Sparkles 
 } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
+import { Breadcrumbs } from '../components/common/Breadcrumbs';
+
+const ServiceIcon: React.FC<{ slug?: string; className?: string }> = ({ slug, className }) => {
+  switch (slug) {
+    case 'custom-software':
+      return <Code2 className={className} />;
+    case 'web-development':
+      return <Globe className={className} />;
+    case 'mobile-apps':
+      return <Smartphone className={className} />;
+    case 'ai-solutions':
+      return <Sparkles className={className} />;
+    default:
+      return <Code2 className={className} />;
+  }
+};
 
 export const ServiceDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -26,18 +38,26 @@ export const ServiceDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isCurrent = true;
     if (!slug) return;
-    setLoading(true);
+
     getService(slug)
       .then((data) => {
+        if (!isCurrent) return;
         setService(data);
         setError(null);
+        setLoading(false);
       })
       .catch((err) => {
+        if (!isCurrent) return;
         console.error('Error fetching service:', err);
         setError('Service not found.');
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [slug]);
 
   if (loading) {
@@ -68,41 +88,55 @@ export const ServiceDetail: React.FC = () => {
     );
   }
 
-  const getServiceIcon = () => {
-    switch (service.slug) {
-      case 'custom-software':
-        return Code2;
-      case 'web-development':
-        return Globe;
-      case 'mobile-apps':
-        return Smartphone;
-      case 'ai-solutions':
-        return Sparkles;
-      default:
-        return Code2;
-    }
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    'name': service.name,
+    'description': service.short_description,
+    'url': `https://kdrsoftwares.in/services/${service.slug}`,
+    'provider': {
+      '@type': 'Organization',
+      'name': 'KDR Softwares',
+      'url': 'https://kdrsoftwares.in'
+    },
+    'serviceType': service.name,
+    'areaServed': {
+      '@type': 'Country',
+      'name': 'India'
+    },
+    'termsOfService': 'Milestone-based delivery with full intellectual property and source code ownership.'
   };
-
-  const Icon = getServiceIcon();
 
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
+      <SEOHead
+        title={`${service.name} Services | KDR Softwares — Indore, India`}
+        description={service.short_description}
+        canonicalUrl={`https://kdrsoftwares.in/services/${service.slug}`}
+        keywords={`${service.name}, custom software development Indore, software agency Madhya Pradesh, ${service.slug}`}
+        ogType="article"
+        breadcrumbs={[
+          { name: 'Services', url: 'https://kdrsoftwares.in/services' },
+          { name: service.name, url: `https://kdrsoftwares.in/services/${service.slug}` }
+        ]}
+        schema={serviceSchema}
+      />
+
       {/* Header */}
       <section className="pb-16 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container>
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-blue-600 mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to All Services</span>
-          </Link>
+          <Breadcrumbs
+            items={[
+              { name: 'Services', url: '/services' },
+              { name: service.name, url: `/services/${service.slug}` }
+            ]}
+          />
 
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
             <div className="space-y-4 max-w-3xl">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-                  <Icon className="w-5 h-5" />
+                  <ServiceIcon slug={service.slug} className="w-5 h-5" />
                 </div>
                 <Badge variant="blue" size="md">
                   Core Engineering Capability

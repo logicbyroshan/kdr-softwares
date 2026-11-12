@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Code2, Layers, CheckCircle } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Container } from '../common/Container';
 import { SectionHeading } from '../common/SectionHeading';
 import { Button } from '../common/Button';
@@ -9,17 +9,21 @@ import { PortfolioProject } from '../../types';
 
 export const PortfolioSection: React.FC = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     getPortfolio()
-      .then((data) => setProjects(data))
-      .catch((err) => console.error('Failed to load portfolio', err))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (isMounted) setProjects(data);
+      })
+      .catch((err) => console.error('Failed to load portfolio', err));
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-white border-b border-slate-200/60 relative">
+    <section id="portfolio" className="py-20 md:py-28 bg-white border-b border-slate-200/80 relative">
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <SectionHeading
@@ -37,15 +41,15 @@ export const PortfolioSection: React.FC = () => {
           {projects.map((item) => (
             <div
               key={item.id}
-              className="rounded-2xl bg-[#FAFAFA] border border-slate-200/90 overflow-hidden hover:border-slate-300 hover:shadow-card transition-all duration-200 flex flex-col justify-between"
+              className="rounded-3xl bg-[#FAFAFA] border border-slate-200/90 overflow-hidden hover:border-slate-300 hover:shadow-card transition-all duration-200 flex flex-col justify-between"
             >
-              <div className="p-7">
-                <div className="flex items-center justify-between mb-3 text-xs">
-                  <span className="font-mono font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+              <div className="p-7 sm:p-8">
+                <div className="flex items-center justify-between mb-3.5 text-xs">
+                  <span className="font-mono font-bold text-[#0062E3] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
                     {item.category}
                   </span>
-                  <span className="text-slate-400 font-mono text-[11px]">
-                    Verified
+                  <span className="text-slate-500 font-mono text-[11px] font-semibold">
+                    Verified Production
                   </span>
                 </div>
 
@@ -53,7 +57,7 @@ export const PortfolioSection: React.FC = () => {
                   {item.title}
                 </h3>
 
-                <p className="text-xs font-medium text-slate-500 mt-1">
+                <p className="text-xs font-semibold text-slate-500 mt-1">
                   Context: {item.client_or_context}
                 </p>
 
@@ -62,31 +66,31 @@ export const PortfolioSection: React.FC = () => {
                 </p>
 
                 {/* Tech Chips */}
-                <div className="mt-6 pt-4 border-t border-slate-200/60 flex flex-wrap gap-1.5">
+                <div className="mt-6 pt-4 border-t border-slate-200/70 flex flex-wrap gap-1.5">
                   {item.tech_list.slice(0, 4).map((tech, idx) => (
                     <span
                       key={idx}
-                      className="text-[11px] font-mono bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 shadow-2xs"
+                      className="text-[11px] font-mono bg-white text-slate-700 px-2 py-0.5 rounded border border-slate-200 shadow-2xs font-medium"
                     >
                       {tech}
                     </span>
                   ))}
                   {item.tech_list.length > 4 && (
-                    <span className="text-[11px] font-mono text-slate-400 px-1 py-0.5">
+                    <span className="text-[11px] font-mono text-slate-500 px-1 py-0.5">
                       +{item.tech_list.length - 4} more
                     </span>
                   )}
                 </div>
               </div>
 
-              <div className="p-4 bg-white border-t border-slate-200/60 flex items-center justify-between text-xs">
-                <span className="text-slate-500 font-medium">In Production / Roadmap</span>
+              <div className="p-4 sm:px-8 bg-white border-t border-slate-200/70 flex items-center justify-between text-xs">
+                <span className="text-slate-600 font-medium">Production Deployed</span>
                 <Link
-                  to={item.project_url || `/portfolio/${item.slug}`}
-                  className="font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 group"
+                  to={item.project_url || `/portfolio`}
+                  className="font-bold text-[#0062E3] hover:text-blue-700 inline-flex items-center gap-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] rounded"
                 >
                   <span>Explore Details</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -96,4 +100,3 @@ export const PortfolioSection: React.FC = () => {
     </section>
   );
 };
-

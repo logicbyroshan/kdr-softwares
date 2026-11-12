@@ -27,42 +27,67 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#070D1A" />
     <link rel="canonical" href="https://kdrsoftwares.in/" />
 
-    <!-- Fonts -->
+    <!-- Fonts Optimization: Non-render-blocking with preconnect and display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    </noscript>
 
-    <!-- Schema.org Organization Structured Data -->
+    <!-- Critical Brand Asset Preload for Instant LCP -->
+    <link rel="preload" as="image" href="/logo.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "KDR Softwares",
-      "url": "https://kdrsoftwares.in",
-      "logo": "https://kdrsoftwares.in/logo.svg",
-      "description": "Software products and custom technology solutions company developing CardFlow, PrintFlow, EazeFlow, and enterprise software.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Navlakha, Indore",
-        "addressRegion": "Madhya Pradesh",
-        "addressCountry": "IN"
-      },
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "email": "contact@kdrsoftwares.in",
-          "contactType": "customer service"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "KDR Softwares",
+        "url": "https://kdrsoftwares.in",
+        "logo": "https://kdrsoftwares.in/logo.png",
+        "description": "Software products and custom technology engineering company developing CardFlow, PrintFlow, EazeFlow, and enterprise software.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Navlakha",
+          "addressLocality": "Indore",
+          "addressRegion": "Madhya Pradesh",
+          "postalCode": "452001",
+          "addressCountry": "IN"
         },
-        {
-          "@type": "ContactPoint",
-          "email": "support@kdrsoftwares.in",
-          "contactType": "technical support"
-        }
-      ]
-    }
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "email": "contact@kdrsoftwares.in",
+            "contactType": "sales"
+          },
+          {
+            "@type": "ContactPoint",
+            "email": "support@kdrsoftwares.in",
+            "contactType": "technical support"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CardFlow",
+        "operatingSystem": "Web, Windows, Linux",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "Contact for Agency Quotation",
+          "priceCurrency": "INR"
+        },
+        "description": "Commercial identity card data verification, OCR extraction, and bulk production management platform handling 100,000+ verified production records."
+      }
+    ]
     </script>
   </head>
   <body class="bg-[#FAFAFA] text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white">

@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container } from '../components/common/Container';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
 import { Badge } from '../components/common/Badge';
 import { DynamicIcon } from '../components/common/DynamicIcon';
 import { getProduct } from '../api/client';
-import { Product, ProductFeature } from '../types';
-import { 
-  CheckCircle2, 
-  Layers, 
-  ArrowLeft, 
-  Info, 
-  ArrowRight, 
-  Download, 
-  FileCheck, 
-  Smartphone, 
-  Wand2, 
-  Database, 
-  ShieldCheck 
-} from 'lucide-react';
+import { Product } from '../types';
+import { CheckCircle2, Info } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
+import { Breadcrumbs } from '../components/common/Breadcrumbs';
 
 export const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -28,18 +18,26 @@ export const ProductDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isCurrent = true;
     if (!slug) return;
-    setLoading(true);
+
     getProduct(slug)
       .then((data) => {
+        if (!isCurrent) return;
         setProduct(data);
         setError(null);
+        setLoading(false);
       })
       .catch((err) => {
+        if (!isCurrent) return;
         console.error('Error fetching product:', err);
         setError('Product not found.');
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [slug]);
 
   if (loading) {
@@ -74,18 +72,62 @@ export const ProductDetail: React.FC = () => {
   const verifiedFeatures = product.features.filter((f) => !f.is_roadmap);
   const roadmapFeatures = product.features.filter((f) => f.is_roadmap);
 
+  const seoTitle = isCardFlow
+    ? 'CardFlow — Bulk ID Card Data & OCR Automation Engine | KDR Softwares'
+    : `${product.name} — ${product.tagline} | KDR Softwares`;
+
+  const seoDescription = isCardFlow
+    ? 'CardFlow streamlines bulk identity card data collection, spreadsheet cleaning, OCR extraction, and verified CorelDRAW batch export. 100,000+ records processed.'
+    : product.short_description;
+
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': product.name,
+    'description': product.short_description,
+    'url': `https://kdrsoftwares.in/products/${product.slug}`,
+    'operatingSystem': 'Web, Windows, Linux',
+    'applicationCategory': isCardFlow ? 'BusinessApplication' : 'DesktopApplication',
+    'image': isCardFlow ? 'https://kdrsoftwares.in/og-cardflow.png' : 'https://kdrsoftwares.in/og-image.png',
+    'author': {
+      '@type': 'Organization',
+      'name': 'KDR Softwares',
+      'url': 'https://kdrsoftwares.in'
+    },
+    'offers': {
+      '@type': 'Offer',
+      'price': isCardFlow ? 'Custom Agency Quotation' : 'Contact for Availability',
+      'priceCurrency': 'INR',
+      'availability': product.status === 'active' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder'
+    },
+    'featureList': verifiedFeatures.map((f) => f.title)
+  };
+
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        canonicalUrl={`https://kdrsoftwares.in/products/${product.slug}`}
+        keywords={`${product.name}, ${product.slug}, ID card management, CorelDRAW print integration, school identity card software, OCR document extraction`}
+        ogType="product"
+        ogImage={isCardFlow ? 'https://kdrsoftwares.in/og-cardflow.png' : 'https://kdrsoftwares.in/og-image.png'}
+        breadcrumbs={[
+          { name: 'Products Suite', url: 'https://kdrsoftwares.in/products' },
+          { name: product.name, url: `https://kdrsoftwares.in/products/${product.slug}` }
+        ]}
+        schema={productSchema}
+      />
+
       {/* Top Breadcrumb & Hero */}
       <section className="pb-16 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container>
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-blue-600 mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to All Products</span>
-          </Link>
+          <Breadcrumbs
+            items={[
+              { name: 'Products Suite', url: '/products' },
+              { name: product.name, url: `/products/${product.slug}` }
+            ]}
+          />
 
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
             <div className="space-y-4 max-w-3xl">

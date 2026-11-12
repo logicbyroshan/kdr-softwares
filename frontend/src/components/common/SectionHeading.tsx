@@ -21,22 +21,25 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   const isDark = mode === 'dark';
 
   return (
-    <div className={`mb-12 md:mb-16 ${isCenter ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}>
+    <div className={`mb-10 md:mb-14 ${isCenter ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}>
       {badge && (
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 border bg-blue-50/80 border-blue-200/60 text-blue-700">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-          {badge}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase mb-3.5 border bg-blue-50 text-blue-800 border-blue-200/80 shadow-2xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0062E3]" aria-hidden="true" />
+          <span>{badge}</span>
         </div>
       )}
-      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-balance ${
+        isDark ? 'text-white' : 'text-slate-900'
+      }`}>
         {title}
       </h2>
       {description && (
-        <p className={`mt-4 text-base sm:text-lg leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+        <p className={`mt-3.5 text-sm sm:text-base md:text-lg leading-relaxed text-balance ${
+          isDark ? 'text-slate-300' : 'text-slate-600'
+        }`}>
           {description}
         </p>
       )}
     </div>
   );
 };
-

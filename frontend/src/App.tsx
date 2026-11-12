@@ -1,23 +1,40 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/navigation/Navbar';
 import { Footer } from './components/footer/Footer';
 import { ScrollToTop } from './components/common/ScrollToTop';
-
-// Pages
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { ProductsHub } from './pages/ProductsHub';
-import { ProductDetail } from './pages/ProductDetail';
-import { ServicesHub } from './pages/ServicesHub';
-import { ServiceDetail } from './pages/ServiceDetail';
-import { PortfolioHub } from './pages/PortfolioHub';
-import { ContactPage } from './pages/ContactPage';
-import { FaqPage } from './pages/FaqPage';
-import { PrivacyPolicy } from './pages/PrivacyPolicy';
-import { TermsConditions } from './pages/TermsConditions';
+import { SkipToContent } from './components/common/SkipToContent';
 import { Container } from './components/common/Container';
 import { Button } from './components/common/Button';
+
+// Eagerly load Homepage for instant LCP and zero hydration layout shift
+import { Home } from './pages/Home';
+
+// Route-level code splitting for secondary pages
+const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
+const ProductsHub = lazy(() => import('./pages/ProductsHub').then((m) => ({ default: m.ProductsHub })));
+const ProductDetail = lazy(() => import('./pages/ProductDetail').then((m) => ({ default: m.ProductDetail })));
+const ServicesHub = lazy(() => import('./pages/ServicesHub').then((m) => ({ default: m.ServicesHub })));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then((m) => ({ default: m.ServiceDetail })));
+const PortfolioHub = lazy(() => import('./pages/PortfolioHub').then((m) => ({ default: m.PortfolioHub })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })));
+const FaqPage = lazy(() => import('./pages/FaqPage').then((m) => ({ default: m.FaqPage })));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then((m) => ({ default: m.PrivacyPolicy })));
+const TermsConditions = lazy(() => import('./pages/TermsConditions').then((m) => ({ default: m.TermsConditions })));
+
+// Accessible Route Loading Skeleton
+const RouteLoadingSkeleton: React.FC = () => (
+  <div className="pt-36 pb-24 min-h-[60vh] flex items-center justify-center" aria-busy="true" aria-live="polite">
+    <Container size="narrow">
+      <div className="space-y-4 max-w-md mx-auto text-center animate-pulse">
+        <div className="w-12 h-12 rounded-2xl bg-blue-100 mx-auto" />
+        <div className="h-6 bg-slate-200 rounded-md w-3/4 mx-auto" />
+        <div className="h-4 bg-slate-100 rounded-md w-1/2 mx-auto" />
+        <span className="sr-only">Loading page content...</span>
+      </div>
+    </Container>
+  </div>
+);
 
 // 404 Component
 const NotFound: React.FC = () => (
@@ -42,29 +59,32 @@ const NotFound: React.FC = () => (
 export const App: React.FC = () => {
   return (
     <Router>
+      <SkipToContent />
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-slate-900 selection:bg-blue-600 selection:text-white">
         {/* Sticky Global Navigation */}
         <Navbar />
 
-        {/* Dynamic Route Content */}
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products" element={<ProductsHub />} />
-            <Route path="/products/:slug" element={<ProductDetail />} />
-            <Route path="/services" element={<ServicesHub />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/portfolio" element={<PortfolioHub />} />
-            <Route path="/portfolio/:slug" element={<PortfolioHub />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/faq" element={<FaqPage />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsConditions />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+        {/* Dynamic Route Content with Suspense Boundary */}
+        <main id="main-content" className="flex-grow focus:outline-none" tabIndex={-1}>
+          <Suspense fallback={<RouteLoadingSkeleton />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/products" element={<ProductsHub />} />
+              <Route path="/products/:slug" element={<ProductDetail />} />
+              <Route path="/services" element={<ServicesHub />} />
+              <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/portfolio" element={<PortfolioHub />} />
+              <Route path="/portfolio/:slug" element={<PortfolioHub />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
 
         {/* Global Footer */}
         <Footer />

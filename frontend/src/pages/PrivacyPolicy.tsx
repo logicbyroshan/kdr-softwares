@@ -1,20 +1,24 @@
 import React from 'react';
 import { Container } from '../components/common/Container';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { SEOHead } from '../components/common/SEOHead';
+import { Breadcrumbs } from '../components/common/Breadcrumbs';
 
 export const PrivacyPolicy: React.FC = () => {
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
+      <SEOHead
+        title="Privacy Policy | KDR Softwares — Data Protection & Client Confidentiality"
+        description="Official Privacy Policy of KDR Softwares: How we protect client information, institutional records, CardFlow databases, and contact inquiries."
+        canonicalUrl="https://kdrsoftwares.in/privacy"
+        keywords="KDR Softwares privacy policy, data protection, client confidentiality, Indore software governance"
+        ogType="article"
+        breadcrumbs={[{ name: 'Privacy Policy', url: 'https://kdrsoftwares.in/privacy' }]}
+      />
+
       <section className="pb-12 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container size="narrow">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-blue-600 mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Home</span>
-          </Link>
+          <Breadcrumbs items={[{ name: 'Privacy Policy', url: '/privacy' }]} />
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-blue-600" />

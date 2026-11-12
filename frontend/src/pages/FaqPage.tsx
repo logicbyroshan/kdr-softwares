@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '../components/common/Container';
-import { SectionHeading } from '../components/common/SectionHeading';
 import { getFaqs } from '../api/client';
 import { FAQ } from '../types';
 import { Search, ChevronDown, Mail, HelpCircle } from 'lucide-react';
 import { Button } from '../components/common/Button';
+import { SEOHead } from '../components/common/SEOHead';
+import { Breadcrumbs } from '../components/common/Breadcrumbs';
 
 export const FaqPage: React.FC = () => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
@@ -41,11 +42,35 @@ export const FaqPage: React.FC = () => {
     setOpenId(openId === id ? null : id);
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.slice(0, 15).map((f) => ({
+      '@type': 'Question',
+      'name': f.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': f.answer
+      }
+    }))
+  };
+
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
+      <SEOHead
+        title="Frequently Asked Questions & Technical Knowledge Base | KDR Softwares"
+        description="Detailed answers regarding CardFlow ID automation, CorelDRAW export, custom software timelines, licensing models, and support policies."
+        canonicalUrl="https://kdrsoftwares.in/faq"
+        keywords="KDR Softwares FAQ, CardFlow questions, CorelDRAW integration guide, software licensing India, custom software quotation"
+        ogType="article"
+        breadcrumbs={[{ name: 'Knowledge Base', url: 'https://kdrsoftwares.in/faq' }]}
+        schema={faqSchema}
+      />
+
       {/* Header */}
       <section className="pb-16 border-b border-slate-200/60 bg-gradient-to-b from-white to-[#FAFAFA]">
         <Container>
+          <Breadcrumbs items={[{ name: 'Knowledge Base', url: '/faq' }]} />
           <div className="max-w-3xl space-y-4">
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/60 inline-block">
               Knowledge Base
@@ -63,6 +88,7 @@ export const FaqPage: React.FC = () => {
                 <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
+                  aria-label="Search frequently asked questions"
                   placeholder="Search questions (e.g. CardFlow, CorelDRAW, custom software, quotation)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -159,7 +185,7 @@ export const FaqPage: React.FC = () => {
               href="mailto:support@kdrsoftwares.in"
               className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors shrink-0"
             >
-              <Mail className="w-4 h-4 text-purple-600" />
+              <Mail className="w-4 h-4 text-brand-cobalt" />
               <span>support@kdrsoftwares.in</span>
             </a>
           </div>

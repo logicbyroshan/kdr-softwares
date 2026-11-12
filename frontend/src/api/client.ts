@@ -388,7 +388,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   try {
     const res = await apiClient.get<SiteSettings>('/site-settings/');
     return res.data;
-  } catch (error) {
+  } catch {
     console.warn('Backend unavailable, using fallback settings');
     return FALLBACK_SETTINGS;
   }
@@ -398,7 +398,7 @@ export async function getStatistics(): Promise<Statistic[]> {
   try {
     const res = await apiClient.get<Statistic[]>('/statistics/');
     return res.data.length ? res.data : FALLBACK_STATS;
-  } catch (error) {
+  } catch {
     return FALLBACK_STATS;
   }
 }
@@ -407,7 +407,7 @@ export async function getTrustedClients(): Promise<TrustedClientCard[]> {
   try {
     const res = await apiClient.get<TrustedClientCard[]>('/trusted-clients/');
     return res.data.length ? res.data : FALLBACK_TRUSTED_CLIENTS;
-  } catch (error) {
+  } catch {
     return FALLBACK_TRUSTED_CLIENTS;
   }
 }
@@ -426,7 +426,7 @@ export async function getProducts(): Promise<Product[]> {
   try {
     const res = await apiClient.get<Product[]>('/products/');
     return res.data.length ? res.data : FALLBACK_PRODUCTS;
-  } catch (error) {
+  } catch {
     return FALLBACK_PRODUCTS;
   }
 }
@@ -435,7 +435,7 @@ export async function getProduct(slug: string): Promise<Product> {
   try {
     const res = await apiClient.get<Product>(`/products/${slug}/`);
     return res.data;
-  } catch (error) {
+  } catch {
     const found = FALLBACK_PRODUCTS.find((p) => p.slug === slug);
     if (!found) throw new Error('Product not found');
     return found;
@@ -446,7 +446,7 @@ export async function getServices(): Promise<Service[]> {
   try {
     const res = await apiClient.get<Service[]>('/services/');
     return res.data.length ? res.data : FALLBACK_SERVICES;
-  } catch (error) {
+  } catch {
     return FALLBACK_SERVICES;
   }
 }
@@ -455,7 +455,7 @@ export async function getService(slug: string): Promise<Service> {
   try {
     const res = await apiClient.get<Service>(`/services/${slug}/`);
     return res.data;
-  } catch (error) {
+  } catch {
     const found = FALLBACK_SERVICES.find((s) => s.slug === slug);
     if (!found) throw new Error('Service not found');
     return found;
@@ -466,7 +466,7 @@ export async function getPortfolio(): Promise<PortfolioProject[]> {
   try {
     const res = await apiClient.get<PortfolioProject[]>('/portfolio/');
     return res.data.length ? res.data : FALLBACK_PORTFOLIO;
-  } catch (error) {
+  } catch {
     return FALLBACK_PORTFOLIO;
   }
 }
@@ -475,7 +475,7 @@ export async function getPortfolioProject(slug: string): Promise<PortfolioProjec
   try {
     const res = await apiClient.get<PortfolioProject>(`/portfolio/${slug}/`);
     return res.data;
-  } catch (error) {
+  } catch {
     const found = FALLBACK_PORTFOLIO.find((p) => p.slug === slug);
     if (!found) throw new Error('Portfolio project not found');
     return found;
@@ -486,7 +486,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   try {
     const res = await apiClient.get<Testimonial[]>('/testimonials/');
     return res.data.length ? res.data : FALLBACK_TESTIMONIALS;
-  } catch (error) {
+  } catch {
     return FALLBACK_TESTIMONIALS;
   }
 }
@@ -496,7 +496,7 @@ export async function getFaqs(category?: string): Promise<FAQ[]> {
     const url = category ? `/faqs/?category=${category}` : '/faqs/';
     const res = await apiClient.get<FAQ[]>(url);
     return res.data.length ? res.data : FALLBACK_FAQS;
-  } catch (error) {
+  } catch {
     return category ? FALLBACK_FAQS.filter((f) => f.category === category) : FALLBACK_FAQS;
   }
 }
@@ -506,7 +506,7 @@ export async function getPricingPlans(productSlug?: string): Promise<PricingPlan
     const url = productSlug ? `/pricing/?product_slug=${productSlug}` : '/pricing/';
     const res = await apiClient.get<PricingPlan[]>(url);
     return res.data.length ? res.data : FALLBACK_PRICING;
-  } catch (error) {
+  } catch {
     return FALLBACK_PRICING;
   }
 }

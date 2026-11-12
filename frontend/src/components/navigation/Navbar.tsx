@@ -22,11 +22,13 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown on outside click or route change
-  useEffect(() => {
+  // Close menu and drawer synchronously on route change
+  const [prevPath, setPrevPath] = useState(location.pathname);
+  if (prevPath !== location.pathname) {
+    setPrevPath(location.pathname);
     setProductsOpen(false);
     setMobileDrawerOpen(false);
-  }, [location.pathname]);
+  }
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -61,6 +63,9 @@ export const Navbar: React.FC = () => {
                 <img 
                   src="/logo.png" 
                   alt="KDR Softwares" 
+                  width="40"
+                  height="40"
+                  decoding="async"
                   className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,98,227,0.25)] transition-transform duration-300 group-hover:scale-110" 
                 />
               </picture>

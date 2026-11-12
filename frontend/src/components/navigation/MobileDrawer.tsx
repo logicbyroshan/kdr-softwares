@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, ChevronDown, ChevronRight, Mail, MapPin } from 'lucide-react';
+import { X, ChevronDown, Mail, MapPin } from 'lucide-react';
 import { Button } from '../common/Button';
 
 interface MobileDrawerProps {
@@ -18,31 +18,32 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-2xl p-6 flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-200">
+      <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-2xl p-6 flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-200 z-10">
         <div>
           {/* Header */}
           <div className="flex items-center justify-between pb-5 border-b border-slate-100">
             <Link to="/" onClick={onClose} className="flex items-center gap-3">
               <picture className="w-9 h-9 flex items-center justify-center shrink-0">
                 <source srcSet="/logo.webp" type="image/webp" />
-                <img src="/logo.png" alt="KDR Softwares Logo" className="w-full h-full object-contain filter drop-shadow-[0_2px_6px_rgba(0,98,227,0.25)]" />
+                <img src="/logo.png" alt="KDR Softwares Logo" width="36" height="36" loading="lazy" decoding="async" className="w-full h-full object-contain filter drop-shadow-[0_2px_6px_rgba(0,98,227,0.25)]" />
               </picture>
               <span className="font-extrabold text-slate-900 tracking-tight text-lg">KDR Softwares</span>
             </Link>
             <button
               onClick={onClose}
-              className="p-2 -mr-2 text-slate-500 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition-colors"
-              aria-label="Close menu"
+              className="p-2 -mr-2 text-slate-500 hover:text-slate-800 rounded-xl hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              aria-label="Close navigation menu"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
 
@@ -51,8 +52,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             <Link
               to="/"
               onClick={onClose}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                isActive('/') ? 'text-blue-600 bg-blue-50/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                isActive('/') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Home
@@ -61,18 +62,20 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             {/* Products Accordion */}
             <div>
               <button
+                type="button"
                 onClick={() => setProductsOpen(!productsOpen)}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                aria-expanded={productsOpen}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
               >
                 <span>Products</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180 text-[#0062E3]' : ''}`} aria-hidden="true" />
               </button>
               {productsOpen && (
-                <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-blue-100 ml-4 my-1">
+                <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-blue-200 ml-4 my-1">
                   <Link
                     to="/products"
                     onClick={onClose}
-                    className="block px-3 py-2 text-xs font-semibold text-blue-600 hover:text-blue-700"
+                    className="block px-3 py-2 text-xs font-bold text-[#0062E3] hover:underline"
                   >
                     All Products Overview →
                   </Link>
@@ -104,18 +107,20 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             {/* Services Accordion */}
             <div>
               <button
+                type="button"
                 onClick={() => setServicesOpen(!servicesOpen)}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                aria-expanded={servicesOpen}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
               >
                 <span>Services</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180 text-[#0062E3]' : ''}`} aria-hidden="true" />
               </button>
               {servicesOpen && (
-                <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-blue-100 ml-4 my-1">
+                <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-blue-200 ml-4 my-1">
                   <Link
                     to="/services"
                     onClick={onClose}
-                    className="block px-3 py-2 text-xs font-semibold text-blue-600 hover:text-blue-700"
+                    className="block px-3 py-2 text-xs font-bold text-[#0062E3] hover:underline"
                   >
                     All Services Overview →
                   </Link>
@@ -154,8 +159,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             <Link
               to="/portfolio"
               onClick={onClose}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                isActive('/portfolio') ? 'text-blue-600 bg-blue-50/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                isActive('/portfolio') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Portfolio
@@ -164,8 +169,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             <Link
               to="/about"
               onClick={onClose}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                isActive('/about') ? 'text-blue-600 bg-blue-50/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                isActive('/about') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               About
@@ -174,8 +179,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             <Link
               to="/faq"
               onClick={onClose}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                isActive('/faq') ? 'text-blue-600 bg-blue-50/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                isActive('/faq') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               FAQ
@@ -184,8 +189,8 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             <Link
               to="/contact"
               onClick={onClose}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                isActive('/contact') ? 'text-blue-600 bg-blue-50/60' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                isActive('/contact') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Contact
@@ -199,15 +204,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
             Get in Touch
           </Button>
 
-          <div className="space-y-2 text-xs text-slate-500">
+          <div className="space-y-2 text-xs text-slate-600">
             <div className="flex items-center gap-2">
-              <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-              <a href="mailto:contact@kdrsoftwares.in" className="hover:text-slate-800">
+              <Mail className="w-3.5 h-3.5 text-[#0062E3] shrink-0" aria-hidden="true" />
+              <a href="mailto:contact@kdrsoftwares.in" className="hover:text-slate-900">
                 contact@kdrsoftwares.in
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-[#0062E3] shrink-0" aria-hidden="true" />
               <span>Navlakha, Indore, MP, India</span>
             </div>
           </div>
@@ -216,4 +221,3 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
     </div>
   );
 };
-

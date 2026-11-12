@@ -10,17 +10,23 @@ export const TestimonialsSection: React.FC = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   useEffect(() => {
+    let isMounted = true;
     getTestimonials()
-      .then((data) => setTestimonials(data))
+      .then((data) => {
+        if (isMounted) setTestimonials(data);
+      })
       .catch((err) => console.error('Failed to load testimonials', err));
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (!testimonials || testimonials.length === 0) {
-    return null; // Gracefully hide if no approved testimonials exist
+    return null;
   }
 
   return (
-    <section className="py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/60 relative">
+    <section className="py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80 relative">
       <Container size="narrow">
         <SectionHeading
           badge="Verified Client Experience"
@@ -33,15 +39,15 @@ export const TestimonialsSection: React.FC = () => {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="rounded-3xl bg-white p-8 sm:p-12 border border-slate-200/80 shadow-card relative overflow-hidden"
+              className="rounded-3xl bg-white p-8 sm:p-12 border border-slate-200/90 shadow-card relative overflow-hidden"
             >
               {/* Background decorative quote symbol */}
-              <Quote className="absolute -top-2 -right-2 w-28 h-28 text-slate-100 -rotate-12 pointer-events-none" />
+              <Quote className="absolute -top-2 -right-2 w-28 h-28 text-slate-100 -rotate-12 pointer-events-none" aria-hidden="true" />
 
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-6 flex-wrap">
                 <Badge variant="emerald" size="sm">
-                  <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-600 inline" />
-                  Verified MVP Commercial Partner
+                  <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-700 inline" aria-hidden="true" />
+                  Verified Commercial Agency Partner
                 </Badge>
                 {t.product_name && (
                   <Badge variant="blue" size="sm">
@@ -55,23 +61,23 @@ export const TestimonialsSection: React.FC = () => {
               </blockquote>
 
               <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4 relative z-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm border border-blue-200">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-full bg-blue-50 text-[#0062E3] font-bold flex items-center justify-center text-sm border border-blue-200 shrink-0">
                     {t.customer_name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
                       {t.customer_name}
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                    <p className="text-xs text-slate-600 mt-0.5 flex items-center gap-1.5 font-medium">
+                      <Building2 className="w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
                       <span>{t.designation} — {t.company}</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="text-xs font-mono text-slate-400">
-                  CardFlow Early Deployment
+                <div className="text-xs font-mono font-semibold text-slate-500 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200">
+                  CardFlow Production Deployment
                 </div>
               </div>
             </div>
@@ -81,4 +87,3 @@ export const TestimonialsSection: React.FC = () => {
     </section>
   );
 };
-

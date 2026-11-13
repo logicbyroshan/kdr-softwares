@@ -255,7 +255,7 @@ export const ContactSection: React.FC = () => {
                     type="submit"
                     variant="primary"
                     size="lg"
-                    className="w-full sm:w-auto font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-blue-600/25"
+                    className="w-full sm:w-auto font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 hover:-translate-y-0.5 active:scale-98 transition-all duration-200"
                     isLoading={isLoading}
                     withArrow
                   >
@@ -284,7 +284,7 @@ export const ContactSection: React.FC = () => {
                   href="https://wa.me/919876543210?text=Hello%20KDR%20Softwares%20team,%20I%20am%20interested%20in%20a%20demo"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-50/80 to-teal-50/30 border border-emerald-200/90 hover:border-emerald-500 hover:shadow-xs transition-all duration-200 group"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-50/80 to-teal-50/30 border border-emerald-200/90 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group"
                 >
                   <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                     <Phone className="w-5 h-5" />
@@ -302,7 +302,7 @@ export const ContactSection: React.FC = () => {
                 {/* Email */}
                 <a
                   href="mailto:contact@kdrsoftwares.in"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-blue-50/80 to-sky-50/30 border border-blue-200/90 hover:border-[#0062E3] hover:shadow-xs transition-all duration-200 group"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-blue-50/80 to-sky-50/30 border border-blue-200/90 hover:border-[#0062E3] hover:-translate-y-1 hover:shadow-md transition-all duration-300 group"
                 >
                   <div className="w-11 h-11 rounded-2xl bg-blue-100 text-[#0062E3] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                     <Mail className="w-5 h-5" />

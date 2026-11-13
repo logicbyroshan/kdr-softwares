@@ -241,20 +241,42 @@ export const Footer: React.FC = () => {
         </div>
       </Container>
 
-      {/* Full-Bleed Signature Brand Wordmark (Spans edge-to-edge + Top part transparent fade) */}
-      <div className="w-full pt-6 sm:pt-10 pb-2 overflow-hidden select-none pointer-events-none flex items-center justify-center">
-        <span 
-          className="text-center text-[8.5vw] sm:text-[9.2vw] md:text-[9.8vw] lg:text-[10.2vw] font-extrabold tracking-tight leading-none uppercase select-none font-wordmark whitespace-nowrap block"
-          style={{
-            WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.35)',
-            color: 'transparent',
-            WebkitTextFillColor: 'transparent',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 1) 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 1) 100%)',
-          }}
+      {/* Full-Bleed Signature Brand Wordmark (Takes exact full width of website, flawless outline with zero intersection lines) */}
+      <div className="w-full pt-8 sm:pt-12 pb-4 overflow-hidden select-none pointer-events-none">
+        <svg 
+          viewBox="0 0 1440 140" 
+          width="100%" 
+          height="auto" 
+          preserveAspectRatio="xMidYMid meet" 
+          className="w-full block overflow-visible select-none pointer-events-none"
         >
-          KDR SOFTWARES
-        </span>
+          <defs>
+            <linearGradient id="footerTextFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.2" />
+              <stop offset="75%" stopColor="#ffffff" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="1" />
+            </linearGradient>
+          </defs>
+          <text
+            x="50%"
+            y="76%"
+            textAnchor="middle"
+            fill="transparent"
+            stroke="url(#footerTextFade)"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+            style={{
+              fontFamily: "'Outfit', 'Plus Jakarta Sans', sans-serif",
+              fontWeight: 900,
+              fontSize: '136px',
+              letterSpacing: '0.045em',
+              textTransform: 'uppercase',
+            }}
+          >
+            KDR SOFTWARES
+          </text>
+        </svg>
       </div>
 
       <Container className="relative z-10">

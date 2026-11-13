@@ -75,7 +75,7 @@ export const TestimonialsSection: React.FC = () => {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="rounded-2xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
+              className="group rounded-2xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* 5-Star Rating & Badge */}

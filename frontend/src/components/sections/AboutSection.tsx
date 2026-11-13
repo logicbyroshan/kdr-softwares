@@ -27,8 +27,8 @@ export const AboutSection: React.FC = () => {
 
             {/* Simple Value Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-              <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#0062E3] flex items-center justify-center mb-2.5" aria-hidden="true">
+              <div className="group p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#0062E3] flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" aria-hidden="true">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
                 <h4 className="font-bold text-slate-900 text-sm">Handles Messy Real Data</h4>
@@ -37,8 +37,8 @@ export const AboutSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-300 transition-colors">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2.5" aria-hidden="true">
+              <div className="group p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-400 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" aria-hidden="true">
                   <PhoneCall className="w-4 h-4" />
                 </div>
                 <h4 className="font-bold text-slate-900 text-sm">Direct Phone & WhatsApp Help</h4>
@@ -83,7 +83,7 @@ export const AboutSection: React.FC = () => {
                 height="400"
                 loading="lazy"
                 decoding="async"
-                className="w-full h-auto object-contain filter drop-shadow-[0_8px_24px_rgba(0,98,227,0.12)] hover:scale-[1.02] transition-transform duration-300"
+                className="w-full h-auto object-contain filter drop-shadow-[0_12px_32px_rgba(0,98,227,0.14)] animate-float hover:scale-[1.03] transition-transform duration-500"
               />
             </div>
           </div>

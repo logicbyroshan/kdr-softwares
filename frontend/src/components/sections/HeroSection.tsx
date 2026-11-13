@@ -247,7 +247,7 @@ export const HeroSection: React.FC = () => {
               <a
                 key={card.id}
                 href={card.link_url || "/products/cardflow"}
-                className="group flex-1 min-w-[270px] sm:min-w-[290px] md:min-w-0 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-slate-900 border border-slate-200/90 hover:border-[#0062E3] transition-all duration-200 flex items-center gap-3.5 sm:gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] shadow-xs hover:shadow-sm"
+                className="group flex-1 min-w-[270px] sm:min-w-[290px] md:min-w-0 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white text-slate-900 border border-slate-200/90 hover:border-[#0062E3] hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex items-center gap-3.5 sm:gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] shadow-xs"
               >
                 {/* Left Thumbnail Image */}
                 <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-14 md:h-14 lg:w-20 lg:h-20 rounded-lg sm:rounded-xl overflow-hidden shrink-0 bg-slate-100 relative border border-slate-100">
@@ -256,7 +256,7 @@ export const HeroSection: React.FC = () => {
                     alt={card.name}
                     width={80}
                     height={80}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>

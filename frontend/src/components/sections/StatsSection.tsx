@@ -57,13 +57,13 @@ export const StatsSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="p-6 sm:p-8 rounded-3xl bg-[#0A1936]/60 border border-blue-900/40 backdrop-blur-xs relative group hover:border-blue-500/50 transition-all duration-200"
+                className="p-6 sm:p-8 rounded-3xl bg-[#0A1936]/60 border border-blue-900/40 backdrop-blur-xs relative group hover:border-cyan-400/60 hover:-translate-y-1.5 hover:shadow-glow-sm transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
                     {stat.label}
                   </span>
-                  <Icon className={`w-5 h-5 ${stat.color}`} aria-hidden="true" />
+                  <Icon className={`w-5 h-5 ${stat.color} group-hover:scale-120 group-hover:rotate-6 transition-transform duration-300`} aria-hidden="true" />
                 </div>
 
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight text-white mb-2">

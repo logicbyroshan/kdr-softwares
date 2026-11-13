@@ -79,17 +79,17 @@ export const WhyChooseSection: React.FC = () => {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl bg-white p-6 sm:p-8 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-400/80 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between overflow-hidden"
+                className="group relative rounded-2xl bg-white p-6 sm:p-8 border border-slate-200/90 shadow-xs hover:shadow-2xl hover:border-blue-400/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 {/* Subtle Top Accent Glow on Hover */}
                 <div 
-                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${diff.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} 
+                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${diff.gradient} opacity-0 group-hover:opacity-100 group-hover:h-1.5 transition-all duration-300`} 
                   aria-hidden="true" 
                 />
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shadow-xs group-hover:scale-105 transition-transform ${diff.color}`} aria-hidden="true">
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shadow-xs group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 ${diff.color}`} aria-hidden="true">
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-600 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200">

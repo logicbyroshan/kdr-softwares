@@ -94,11 +94,11 @@ export const ProductsShowcase: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`group rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl ${item.accentBorder} transition-all duration-200 flex flex-col justify-between overflow-hidden p-6 sm:p-7 relative`}
+                className={`group rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-2 ${item.accentBorder} transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-7 relative`}
               >
                 {/* Top Subtle Ambient Stripe */}
                 <div 
-                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${item.logoGradient} opacity-90`} 
+                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${item.logoGradient} opacity-80 group-hover:opacity-100 group-hover:h-1.5 transition-all duration-300`} 
                   aria-hidden="true" 
                 />
 
@@ -107,7 +107,7 @@ export const ProductsShowcase: React.FC = () => {
                   <div className="flex items-center justify-between pb-5 border-b border-slate-100">
                     {/* Dedicated Place for Product Logo */}
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.logoGradient} text-white flex items-center justify-center font-bold font-mono shadow-md shadow-slate-200 shrink-0 group-hover:scale-105 transition-transform`}>
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.logoGradient} text-white flex items-center justify-center font-bold font-mono shadow-md shadow-slate-200 shrink-0 group-hover:scale-110 group-hover:rotate-2 transition-transform duration-300`}>
                         <Icon className="w-6 h-6" aria-hidden="true" />
                       </div>
                       <div>

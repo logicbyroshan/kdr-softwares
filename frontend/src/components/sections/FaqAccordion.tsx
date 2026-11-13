@@ -112,7 +112,9 @@ export const FaqAccordion: React.FC = () => {
             return (
               <div
                 key={faq.id}
-                className="rounded-2xl border border-slate-200/90 bg-white shadow-2xs overflow-hidden transition-all duration-200 hover:border-slate-300"
+                className={`rounded-2xl border bg-white shadow-2xs overflow-hidden transition-all duration-300 ${
+                  isOpen ? 'border-[#0062E3]/60 shadow-sm ring-1 ring-blue-500/10' : 'border-slate-200/90 hover:border-slate-300'
+                }`}
               >
                 <button
                   type="button"
@@ -120,18 +122,20 @@ export const FaqAccordion: React.FC = () => {
                   aria-expanded={isOpen}
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0062E3]"
                 >
-                  <span className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
+                  <span className={`text-sm sm:text-base font-bold leading-snug transition-colors ${
+                    isOpen ? 'text-[#0062E3]' : 'text-slate-900'
+                  }`}>
                     {faq.question}
                   </span>
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'bg-blue-50 text-[#0062E3] rotate-180' : 'bg-slate-100 text-slate-500'
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    isOpen ? 'bg-blue-50 text-[#0062E3] rotate-180 scale-105' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                   }`}>
                     <ChevronDown className="w-4 h-4" aria-hidden="true" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 animate-in fade-in duration-200">
+                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
                     <p>{faq.answer}</p>
                   </div>
                 )}

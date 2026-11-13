@@ -1,5 +1,7 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Navbar } from './components/navigation/Navbar';
 import { Footer } from './components/footer/Footer';
 import { ScrollToTop } from './components/common/ScrollToTop';
@@ -57,6 +59,34 @@ const NotFound: React.FC = () => (
 );
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    // Initialize Lenis Smooth Momentum Scrolling
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+    });
+
+    (window as any).__lenis = lenis;
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as any).__lenis;
+    };
+  }, []);
+
   return (
     <Router>
       <SkipToContent />
@@ -70,15 +100,15 @@ export const App: React.FC = () => {
           <Suspense fallback={<RouteLoadingSkeleton />}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<Navigate to="/#about" replace />} />
+              <Route path="/contact" element={<Navigate to="/#contact" replace />} />
+              <Route path="/faq" element={<Navigate to="/#faq" replace />} />
               <Route path="/products" element={<ProductsHub />} />
               <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/services" element={<ServicesHub />} />
               <Route path="/services/:slug" element={<ServiceDetail />} />
               <Route path="/portfolio" element={<PortfolioHub />} />
               <Route path="/portfolio/:slug" element={<PortfolioHub />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/faq" element={<FaqPage />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="*" element={<NotFound />} />

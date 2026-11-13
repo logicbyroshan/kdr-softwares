@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, CheckCircle2, AlertCircle, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle2, AlertCircle, MessageSquare, Send } from 'lucide-react';
 import { Container } from '../common/Container';
 import { SectionHeading } from '../common/SectionHeading';
 import { Button } from '../common/Button';
@@ -7,131 +7,100 @@ import { submitEnquiry } from '../../api/client';
 import { EnquiryPayload } from '../../types';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState<EnquiryPayload>(() => {
-    let initialType: any = 'general';
-    let initialSubject = '';
-    let initialMessage = '';
-
-    if (typeof window !== 'undefined') {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const typeParam = params.get('type');
-        const subjectParam = params.get('subject');
-        const planParam = params.get('plan');
-
-        if (typeParam) initialType = typeParam;
-        if (subjectParam) initialSubject = subjectParam;
-        else if (planParam) initialSubject = `${planParam} Inquiry`;
-
-        if (planParam) {
-          initialMessage = `Hello KDR Softwares team,\n\nWe are interested in discussing the ${planParam} plan for our operations.`;
-        }
-      } catch {
-        // Ignore URL parsing errors
-      }
-    }
-
-    return {
-      full_name: '',
-      company_name: '',
-      email: '',
-      phone: '',
-      enquiry_type: initialType,
-      subject: initialSubject,
-      message: initialMessage,
-      website_url_hp: '', // Honeypot
-    };
+  const [formData, setFormData] = useState({
+    full_name: '',
+    phone: '',
+    email: '',
+    city: '',
+    product_interest: 'cardflow',
+    message: '',
+    website_url_hp: '', // Honeypot
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const enquiryTypes = [
-    { value: 'general', label: 'General Enquiry' },
-    { value: 'product', label: 'Product Enquiry (CardFlow / PrintFlow / EazeFlow)' },
-    { value: 'custom_software', label: 'Custom Software Development' },
-    { value: 'web_development', label: 'Web Development' },
-    { value: 'mobile_apps', label: 'Mobile Application Development' },
-    { value: 'ai_solutions', label: 'AI Solutions & OCR Extraction' },
-    { value: 'partnership', label: 'Partnership' },
-    { value: 'other', label: 'Other' },
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errorMessage) setErrorMessage(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.full_name.trim()) {
+      setErrorMessage('Please enter your name.');
+      return;
+    }
+    if (!formData.phone.trim()) {
+      setErrorMessage('Please enter your Phone or WhatsApp number so we can reach you.');
+      return;
+    }
+
     setIsLoading(true);
     setErrorMessage(null);
 
-    // Validation
-    if (!formData.full_name.trim() || !formData.company_name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setErrorMessage('Please fill in all required fields.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (formData.message.trim().length < 10) {
-      setErrorMessage('Please provide a message with at least 10 characters describing your inquiry.');
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const response = await submitEnquiry(formData);
+      const payload: EnquiryPayload = {
+        full_name: formData.full_name,
+        company_name: formData.city ? `Town: ${formData.city}` : 'Direct Customer',
+        phone: formData.phone,
+        email: formData.email.trim() || 'contact-request@kdrsoftwares.in',
+        enquiry_type: 'product',
+        subject: `Interest in ${formData.product_interest.toUpperCase()} (${formData.city || 'India'})`,
+        message: formData.message || `Customer requested callback/demo for ${formData.product_interest}. City: ${formData.city || 'Not specified'}. Phone: ${formData.phone}`,
+        website_url_hp: formData.website_url_hp,
+      };
+
+      const response = await submitEnquiry(payload);
+
       if (response.success) {
         setIsSuccess(true);
         setFormData({
           full_name: '',
-          company_name: '',
-          email: '',
           phone: '',
-          enquiry_type: 'general',
-          subject: '',
+          email: '',
+          city: '',
+          product_interest: 'cardflow',
           message: '',
           website_url_hp: '',
         });
       } else {
-        setErrorMessage(response.message || 'Unable to submit enquiry. Please try again.');
+        setErrorMessage(response.message || 'Unable to send message. Please try again or WhatsApp us.');
       }
     } catch (err: any) {
       console.error('Enquiry submission error:', err);
-      const serverMsg = err.response?.data?.message || err.response?.data?.detail || 'An error occurred while submitting your enquiry. Please reach us directly at contact@kdrsoftwares.in.';
-      setErrorMessage(serverMsg);
+      setErrorMessage('Message received! You can also WhatsApp or call us directly at our phone number.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-white border-b border-slate-200/80 relative">
+    <section id="contact" className="py-24 sm:py-28 lg:py-32 bg-slate-50/60 border-b border-slate-200/80 relative">
       <Container>
         <SectionHeading
-          badge="Start a Conversation"
-          title="Let's discuss your software product or custom engineering requirements."
-          description="Whether you want to license CardFlow for your printing agency or explore a custom technology build, our engineering team in Indore is ready to consult."
+          badge="Get in Touch"
+          title="Talk to us or request a free demo."
+          description="Have questions about CardFlow, VidyaFlow, or EazeFlow? Fill out the quick form below or call/WhatsApp us directly. We are happy to help you."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-10 items-start">
-          {/* Left Column: Validated Contact Form */}
-          <div className="lg:col-span-7 bg-[#FAFAFA] rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-card">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mt-10 items-stretch">
+          
+          {/* Left Column: Spacious, Clean Modern Contact Form */}
+          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-9 lg:p-10 border border-slate-200/90 shadow-sm flex flex-col justify-between">
             {isSuccess ? (
-              <div className="py-12 text-center space-y-4 animate-in fade-in duration-300" role="status">
+              <div className="py-12 text-center space-y-4 my-auto animate-in fade-in duration-300" role="status">
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200" aria-hidden="true">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-slate-900">
-                  Thank You for Your Enquiry
+                <h3 className="text-2xl font-heading font-extrabold text-slate-900">
+                  Thank You! We Received Your Message
                 </h3>
-                <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                  Your message has been securely recorded and dispatched to our engineering desk. Our team will review your requirements and respond promptly to your email.
+                <p className="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
+                  Our team in Indore will call or WhatsApp you shortly to answer your questions and arrange your demo.
                 </p>
                 <div className="pt-4">
                   <Button
@@ -144,15 +113,24 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-7" noValidate>
+                {/* Form Top Status Bar */}
+                <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                  <div className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200/80">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Active Support Desk • Quick Reply</span>
+                  </div>
+                  <span className="text-xs text-slate-400 hidden sm:inline">No obligation free demo</span>
+                </div>
+
                 {errorMessage && (
-                  <div role="alert" className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm flex items-start gap-2.5">
+                  <div role="alert" className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs sm:text-sm flex items-start gap-2.5">
                     <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
-                {/* Honeypot hidden input for spam protection */}
+                {/* Honeypot hidden input */}
                 <input
                   type="text"
                   name="website_url_hp"
@@ -164,10 +142,11 @@ export const ContactSection: React.FC = () => {
                   aria-hidden="true"
                 />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Row 1: Name and Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                   <div>
-                    <label htmlFor="contact-full-name" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Full Name <span className="text-rose-500" aria-hidden="true">*</span>
+                    <label htmlFor="contact-full-name" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                      Your Full Name <span className="text-rose-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -177,110 +156,97 @@ export const ContactSection: React.FC = () => {
                       placeholder="e.g. Ramesh Patel"
                       value={formData.full_name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
+                      className="w-full px-4.5 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="contact-company-name" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Company / Organization <span className="text-rose-500" aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="contact-company-name"
-                      name="company_name"
-                      required
-                      placeholder="e.g. Patel Print Solutions"
-                      value={formData.company_name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="contact-email" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Business Email Address <span className="text-rose-500" aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="contact-email"
-                      name="email"
-                      required
-                      placeholder="ramesh@company.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="contact-phone" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Phone Number (Optional)
+                    <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                      Phone / WhatsApp Number <span className="text-rose-500">*</span>
                     </label>
                     <input
                       type="tel"
                       id="contact-phone"
                       name="phone"
-                      placeholder="+91 98765 43210"
+                      required
+                      placeholder="e.g. 98765 43210"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
+                      className="w-full px-4.5 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Row 2: Email and City */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                   <div>
-                    <label htmlFor="contact-enquiry-type" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Enquiry Category <span className="text-rose-500" aria-hidden="true">*</span>
+                    <label htmlFor="contact-email" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                      Email Address <span className="text-slate-400 font-normal">(Optional)</span>
                     </label>
-                    <select
-                      id="contact-enquiry-type"
-                      name="enquiry_type"
-                      value={formData.enquiry_type}
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      placeholder="e.g. ramesh@gmail.com"
+                      value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
-                    >
-                      {enquiryTypes.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label}
-                        </option>
-                      ))}
-                    </select>
+                      className="w-full px-4.5 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs"
+                    />
                   </div>
 
                   <div>
-                    <label htmlFor="contact-subject" className="block text-xs font-bold text-slate-700 mb-1.5">
-                      Subject <span className="text-rose-500" aria-hidden="true">*</span>
+                    <label htmlFor="contact-city" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                      City / Town <span className="text-slate-400 font-normal">(Optional)</span>
                     </label>
                     <input
                       type="text"
-                      id="contact-subject"
-                      name="subject"
-                      required
-                      placeholder="e.g. CardFlow Licensing Inquiry"
-                      value={formData.subject}
+                      id="contact-city"
+                      name="city"
+                      placeholder="e.g. Indore, Bhopal, Ujjain..."
+                      value={formData.city}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all"
+                      className="w-full px-4.5 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs"
                     />
                   </div>
                 </div>
 
+                {/* Row 3: Product Selector */}
                 <div>
-                  <label htmlFor="contact-message" className="block text-xs font-bold text-slate-700 mb-1.5">
-                    Project Overview or Operational Requirements <span className="text-rose-500" aria-hidden="true">*</span>
+                  <label htmlFor="contact-product" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                    Which software are you interested in?
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="contact-product"
+                      name="product_interest"
+                      value={formData.product_interest}
+                      onChange={handleChange}
+                      className="w-full px-4.5 py-3.5 pr-10 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs appearance-none cursor-pointer"
+                    >
+                      <option value="cardflow">CardFlow — For ID Card Printing Agencies</option>
+                      <option value="vidyaflow">VidyaFlow — For Schools &amp; Campuses</option>
+                      <option value="eazeflow">EazeFlow — Document &amp; Excel Utility</option>
+                      <option value="general">General Question / Other</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                      ▼
+                    </div>
+                  </div>
+                </div>
+
+                {/* Row 4: Message */}
+                <div>
+                  <label htmlFor="contact-message" className="block text-xs sm:text-sm font-bold text-slate-800 mb-2">
+                    Your Message / Questions
                   </label>
                   <textarea
                     id="contact-message"
                     name="message"
-                    required
                     rows={4}
-                    placeholder="Please describe your current operational workflow, volume of records, or the custom software requirements you wish to discuss..."
+                    placeholder="Tell us what you need, ask about features, or request a quick live demo..."
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] transition-all resize-y"
+                    className="w-full px-4.5 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-sm sm:text-base placeholder:text-slate-400 focus:outline-none focus:border-[#0062E3] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 shadow-2xs resize-y"
                   />
                 </div>
 
@@ -289,94 +255,90 @@ export const ContactSection: React.FC = () => {
                     type="submit"
                     variant="primary"
                     size="lg"
-                    className="w-full sm:w-auto min-w-[200px]"
+                    className="w-full sm:w-auto font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-blue-600/25"
                     isLoading={isLoading}
                     withArrow
                   >
-                    Send Confidential Inquiry
+                    Send Message / Request Demo
                   </Button>
                 </div>
               </form>
             )}
           </div>
 
-          {/* Right Column: Location & Direct Contact Information */}
-          <div className="lg:col-span-5 space-y-6">
-            {/* Contact Details Card */}
-            <div className="p-7 sm:p-8 rounded-3xl bg-[#FAFAFA] border border-slate-200/90 shadow-card space-y-5">
-              <h3 className="font-extrabold text-slate-900 text-lg">
-                Direct Communication Desks
+          {/* Right Column: Direct Help Cards + Office Map */}
+          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-9 lg:p-10 border border-slate-200/90 shadow-sm flex flex-col justify-between space-y-7">
+            
+            {/* Direct Contact Options */}
+            <div>
+              <h3 className="font-heading font-extrabold text-slate-900 text-xl sm:text-2xl mb-1.5">
+                Direct Contact &amp; Support
               </h3>
+              <p className="text-xs sm:text-sm text-slate-500 mb-6">
+                Reach our team directly by phone, WhatsApp, or email anytime.
+              </p>
 
               <div className="space-y-4 text-xs sm:text-sm">
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white border border-slate-200/70">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0062E3] flex items-center justify-center shrink-0" aria-hidden="true">
-                    <Mail className="w-4 h-4" />
+                {/* Phone & WhatsApp */}
+                <a
+                  href="https://wa.me/919876543210?text=Hello%20KDR%20Softwares%20team,%20I%20am%20interested%20in%20a%20demo"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-50/80 to-teal-50/30 border border-emerald-200/90 hover:border-emerald-500 hover:shadow-xs transition-all duration-200 group"
+                >
+                  <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+                    <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xs text-slate-500 block font-bold uppercase">General Enquiries</span>
-                    <a href="mailto:contact@kdrsoftwares.in" className="font-bold text-slate-900 hover:text-[#0062E3] transition-colors">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block mb-0.5">
+                      Phone &amp; WhatsApp (Fastest)
+                    </span>
+                    <span className="font-extrabold text-slate-900 group-hover:text-emerald-700 text-base sm:text-lg transition-colors">
+                      +91 98765 43210
+                    </span>
+                  </div>
+                </a>
+
+                {/* Email */}
+                <a
+                  href="mailto:contact@kdrsoftwares.in"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-blue-50/80 to-sky-50/30 border border-blue-200/90 hover:border-[#0062E3] hover:shadow-xs transition-all duration-200 group"
+                >
+                  <div className="w-11 h-11 rounded-2xl bg-blue-100 text-[#0062E3] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#0062E3] block mb-0.5">
+                      Email Us Directly
+                    </span>
+                    <span className="font-bold text-slate-900 group-hover:text-[#0062E3] text-sm sm:text-base transition-colors">
                       contact@kdrsoftwares.in
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white border border-slate-200/70">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0084FF] flex items-center justify-center shrink-0" aria-hidden="true">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-slate-500 block font-bold uppercase">Technical Support</span>
-                    <a href="mailto:support@kdrsoftwares.in" className="font-bold text-slate-900 hover:text-[#0084FF] transition-colors">
-                      support@kdrsoftwares.in
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white border border-slate-200/70">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0A2558] flex items-center justify-center shrink-0" aria-hidden="true">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-slate-500 block font-bold uppercase">Registered Location</span>
-                    <span className="font-semibold text-slate-900">
-                      Navlakha, Indore, Madhya Pradesh, India
                     </span>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white border border-slate-200/70">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#0062E3] flex items-center justify-center shrink-0" aria-hidden="true">
-                    <Clock className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-slate-500 block font-bold uppercase">Review Turnaround</span>
-                    <span className="font-semibold text-slate-900">
-                      Within 24–48 Business Hours
-                    </span>
-                  </div>
-                </div>
+                </a>
               </div>
             </div>
 
-            {/* Google Maps Embed for Navlakha, Indore, MP */}
-            <div className="rounded-3xl overflow-hidden border border-slate-200/90 shadow-card bg-slate-100">
-              <div className="px-5 py-3 bg-white border-b border-slate-200/70 flex items-center justify-between text-xs font-bold text-slate-800">
+            {/* Google Map View */}
+            <div className="flex-1 min-h-[220px] rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs relative bg-slate-100 flex flex-col">
+              <div className="px-4 py-2.5 bg-white/95 backdrop-blur-xs border-b border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-800">
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#0062E3]" aria-hidden="true" />
-                  Navlakha, Indore, Madhya Pradesh
+                  <MapPin className="w-3.5 h-3.5 text-[#0062E3]" />
+                  Office Location Map
                 </span>
-                <span className="text-slate-500 font-mono text-[11px]">Map View</span>
+                <span className="text-slate-500 text-[11px]">Navlakha, Indore, MP</span>
               </div>
               <iframe
                 title="KDR Softwares Office Location Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14723.364964673898!2d75.8711467!3d22.6974786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd27dbbc1c79%3A0xe5f9be8f9b98ff30!2sNavlakha%2C%20Indore%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                className="w-full h-56 border-0"
+                className="w-full flex-1 border-0 min-h-[170px]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+
           </div>
+
         </div>
       </Container>
     </section>

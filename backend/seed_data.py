@@ -64,7 +64,7 @@ def seed():
         label="Core Software Products",
         value="3",
         suffix="Products",
-        description="CardFlow, PrintFlow, and EazeFlow built to address distinct operational challenges",
+        description="CardFlow, VidyaFlow, and EazeFlow built to address distinct operational challenges",
         display_order=2,
         is_published=True
     )
@@ -125,7 +125,7 @@ def seed():
             "It eliminates data bottlenecks by handling multi-institution client rosters, Excel and Word spreadsheets, embedded photo extraction, "
             "automated facial and filename photograph matching, duplicate detection, and staff approval hierarchies.\n\n"
             "Important note: CardFlow manages data and production workflows. Printing agencies use CorelDRAW or their preferred external software "
-            "for physical card layout design and printing. CardFlow and PrintFlow are actively progressing along an integrated roadmap toward "
+            "for physical card layout design and printing. CardFlow and VidyaFlow are actively progressing along an integrated roadmap toward "
             "direct print-ready card generation and intelligent template mapping."
         ),
         status="active",
@@ -149,7 +149,7 @@ def seed():
         ("Multi-Format Production Exports", "Generate production packages formatted for CorelDRAW, Excel spreadsheets, Word summaries, and organized ZIP photo archives.", "Download", False, 11),
         ("Android Companion Application", "Field-ready mobile application for on-campus verification, photo capture, and instantaneous record lookup.", "Smartphone", False, 12),
         ("Intelligent PDF Design Interpretation", "Roadmap capability: Automatic extraction and layout mapping from existing client PDF templates directly into print workflows.", "Wand2", True, 13),
-        ("PrintFlow Integrated Card Generation", "Roadmap capability: Native automated rendering of print-ready card layouts directly inside the workflow pipeline.", "Printer", True, 14),
+        ("VidyaFlow Integrated Card Generation", "Roadmap capability: Native automated rendering of print-ready card layouts directly inside the workflow pipeline.", "Printer", True, 14),
     ]
 
     for title, desc, icon, is_roadmap, order in cardflow_features:
@@ -162,33 +162,33 @@ def seed():
             display_order=order
         )
 
-    printflow = Product.objects.create(
-        name="PrintFlow",
-        slug="printflow",
-        tagline="ID-Card Design & Printing Automation Product",
+    vidyaflow = Product.objects.create(
+        name="VidyaFlow",
+        slug="vidyaflow",
+        tagline="Smart School Management & Campus Administration System",
         short_description="An independently hosted printing automation product engineered to bridge data pipelines with precision design layouts.",
         full_description=(
-            "PrintFlow is an ID-card design and printing automation product. It is independently hosted and engineered to automate repetitive print sheet formatting, "
+            "VidyaFlow is an ID-card design and printing automation product. It is independently hosted and engineered to automate repetitive print sheet formatting, "
             "barcode placement, and print queue management. In conjunction with CardFlow, it provides the technological foundation for fully automated "
             "data-to-print execution."
         ),
         status="in_development",
-        product_url="/products/printflow",
+        product_url="/products/vidyaflow",
         accent_color="#7C3AED",
         is_featured=True,
         display_order=2
     )
 
-    printflow_features = [
+    vidyaflow_features = [
         ("Automated Sheet Imposition", "Organize card layouts into high-density press sheets optimized for standard commercial card printers.", "Grid", False, 1),
         ("Precision Template Parsing", "Interpret vector coordinates and variable text fields with micron-level alignment.", "Maximize", False, 2),
         ("Barcode & QR Code Engine", "Dynamic generation of high-resolution 1D and 2D barcodes tied directly to record identifiers.", "QrCode", False, 3),
         ("Seamless CardFlow Integration Bridge", "Roadmap capability: Direct bi-directional API connection to CardFlow verified record batches.", "GitMerge", True, 4),
     ]
 
-    for title, desc, icon, is_roadmap, order in printflow_features:
+    for title, desc, icon, is_roadmap, order in vidyaflow_features:
         ProductFeature.objects.create(
-            product=printflow,
+            product=vidyaflow,
             title=title,
             description=desc,
             icon_name=icon,
@@ -335,17 +335,17 @@ def seed():
         published_status=True
     )
     PortfolioProject.objects.create(
-        title="PrintFlow — Automated ID Imposition Engine",
-        slug="printflow-engine",
+        title="VidyaFlow — Automated ID Imposition Engine",
+        slug="vidyaflow-engine",
         category="Automation Engine",
         client_or_context="Independent ID Printing Automation Product",
         short_summary="High-speed template layout generation and print batch imposition engine.",
         detailed_description=(
-            "PrintFlow addresses the physical pre-press bottleneck by taking structured records and programmatically placing them onto printer-ready "
+            "VidyaFlow addresses the physical pre-press bottleneck by taking structured records and programmatically placing them onto printer-ready "
             "sheet layouts with precision barcodes and registration marks. Designed as an independent engine that pairs with CardFlow."
         ),
         technologies="Python, Vector Graphics Processing, REST APIs, Microservices",
-        project_url="/products/printflow",
+        project_url="/products/vidyaflow",
         is_featured=True,
         display_order=2,
         published_status=True
@@ -390,14 +390,14 @@ def seed():
     faqs_data = [
         # General
         ("What does KDR Softwares do?", "KDR Softwares develops practical software products and builds custom technology solutions that help businesses simplify complex operations, automate workflows, and grow through technology.", "general", 1),
-        ("What are the company's two primary business areas?", "We have two core focuses: developing our own software products (such as CardFlow, PrintFlow, and EazeFlow) and engineering custom software, web platforms, mobile apps, and AI solutions for client organizations.", "general", 2),
+        ("What are the company's two primary business areas?", "We have two core focuses: developing our own software products (such as CardFlow, VidyaFlow, and EazeFlow) and engineering custom software, web platforms, mobile apps, and AI solutions for client organizations.", "general", 2),
         ("Does KDR Softwares work with businesses of different sizes?", "Yes. We work with commercial agencies, growing companies, and established enterprises that require dependable software engineered around real business processes.", "general", 3),
         ("Where is KDR Softwares located?", "KDR Softwares is based in Navlakha, Indore, Madhya Pradesh, India.", "general", 4),
         
         # Products
         ("What is CardFlow?", "CardFlow is an ID-card data management and production workflow platform designed specifically for commercial ID-card printing agencies to manage institutions, extract data, verify records, and coordinate production.", "products", 5),
-        ("Does CardFlow design and print the physical ID cards directly?", "CardFlow currently manages the critical data intake, verification, photo matching, and production export workflows. Printing agencies use CorelDRAW or their preferred design software for physical layout and printing. Direct design interpretation and automated print-ready rendering via PrintFlow are actively on our development roadmap.", "products", 6),
-        ("What is PrintFlow?", "PrintFlow is an independently hosted ID-card design and printing automation product. It is engineered to automate template parsing, sheet imposition, and batch generation, and can also integrate with CardFlow.", "products", 7),
+        ("Does CardFlow design and print the physical ID cards directly?", "CardFlow currently manages the critical data intake, verification, photo matching, and production export workflows. Printing agencies use CorelDRAW or their preferred design software for physical layout and printing. Direct design interpretation and automated print-ready rendering via VidyaFlow are actively on our development roadmap.", "products", 6),
+        ("What is VidyaFlow?", "VidyaFlow is an independently hosted ID-card design and printing automation product. It is engineered to automate template parsing, sheet imposition, and batch generation, and can also integrate with CardFlow.", "products", 7),
         ("What is EazeFlow?", "EazeFlow is a digital productivity and document utility product designed to automate routine document transformations, data sanitization, and batch file conversions.", "products", 8),
         
         # Services

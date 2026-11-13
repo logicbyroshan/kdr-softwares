@@ -10,7 +10,6 @@ interface MobileDrawerProps {
 
 export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) => {
   const [productsOpen, setProductsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
 
   if (!isOpen) return null;
@@ -51,9 +50,17 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
           <nav className="mt-6 space-y-1">
             <Link
               to="/"
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, options?: Record<string, unknown>) => void } }).__lenis;
+                if (lenis) {
+                  lenis.scrollTo(0, { duration: 0.8 });
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
               className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive('/') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                isActive('/') && (!location.hash || location.hash === '#') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
               }`}
             >
               Home
@@ -87,11 +94,11 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
                     CardFlow (ID Production Platform)
                   </Link>
                   <Link
-                    to="/products/printflow"
+                    to="/products/vidyaflow"
                     onClick={onClose}
                     className="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900"
                   >
-                    PrintFlow (Printing Automation)
+                    VidyaFlow (Smart School System)
                   </Link>
                   <Link
                     to="/products/eazeflow"
@@ -104,103 +111,109 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) =
               )}
             </div>
 
-            {/* Services Accordion */}
-            <div>
-              <button
-                type="button"
-                onClick={() => setServicesOpen(!servicesOpen)}
-                aria-expanded={servicesOpen}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
-              >
-                <span>Services</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180 text-[#0062E3]' : ''}`} aria-hidden="true" />
-              </button>
-              {servicesOpen && (
-                <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-blue-200 ml-4 my-1">
-                  <Link
-                    to="/services"
-                    onClick={onClose}
-                    className="block px-3 py-2 text-xs font-bold text-[#0062E3] hover:underline"
-                  >
-                    All Services Overview →
-                  </Link>
-                  <Link
-                    to="/services/custom-software"
-                    onClick={onClose}
-                    className="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900"
-                  >
-                    Custom Software Development
-                  </Link>
-                  <Link
-                    to="/services/web-development"
-                    onClick={onClose}
-                    className="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900"
-                  >
-                    Web Development
-                  </Link>
-                  <Link
-                    to="/services/mobile-apps"
-                    onClick={onClose}
-                    className="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900"
-                  >
-                    Mobile App Development
-                  </Link>
-                  <Link
-                    to="/services/ai-solutions"
-                    onClick={onClose}
-                    className="block px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900"
-                  >
-                    AI Solutions
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link
-              to="/portfolio"
-              onClick={onClose}
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive('/portfolio') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-              }`}
+            <a
+              href="/#why-choose"
+              onClick={(e) => {
+                onClose();
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  const el = document.getElementById('why-choose');
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                  if (el) {
+                    if (lenis) lenis.scrollTo(el, { offset: -70 });
+                    else el.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', '#why-choose');
+                  }
+                }
+              }}
+              className="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors text-slate-700 hover:text-slate-900 hover:bg-slate-50"
             >
-              Portfolio
-            </Link>
+              Why Choose Us
+            </a>
 
-            <Link
-              to="/about"
-              onClick={onClose}
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive('/about') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-              }`}
+            <a
+              href="/#about"
+              onClick={(e) => {
+                onClose();
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  const el = document.getElementById('about');
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                  if (el) {
+                    if (lenis) lenis.scrollTo(el, { offset: -70 });
+                    else el.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', '#about');
+                  }
+                }
+              }}
+              className="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors text-slate-700 hover:text-slate-900 hover:bg-slate-50"
             >
               About
-            </Link>
+            </a>
 
-            <Link
-              to="/faq"
-              onClick={onClose}
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive('/faq') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-              }`}
+            <a
+              href="/#faq"
+              onClick={(e) => {
+                onClose();
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  const el = document.getElementById('faq');
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                  if (el) {
+                    if (lenis) lenis.scrollTo(el, { offset: -70 });
+                    else el.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', '#faq');
+                  }
+                }
+              }}
+              className="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors text-slate-700 hover:text-slate-900 hover:bg-slate-50"
             >
               FAQ
-            </Link>
+            </a>
 
-            <Link
-              to="/contact"
-              onClick={onClose}
-              className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive('/contact') ? 'text-[#0062E3] bg-blue-50/80 font-bold' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-              }`}
+            <a
+              href="/#contact"
+              onClick={(e) => {
+                onClose();
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  const el = document.getElementById('contact');
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                  if (el) {
+                    if (lenis) lenis.scrollTo(el, { offset: -70 });
+                    else el.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', '#contact');
+                  }
+                }
+              }}
+              className="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors text-slate-700 hover:text-slate-900 hover:bg-slate-50"
             >
               Contact
-            </Link>
+            </a>
           </nav>
         </div>
 
         {/* Footer info inside mobile drawer */}
         <div className="pt-6 border-t border-slate-100 space-y-4">
-          <Button href="/contact" variant="primary" className="w-full" onClick={onClose} withArrow>
+          <Button 
+            href="/#contact" 
+            variant="primary" 
+            className="w-full" 
+            onClick={(e) => {
+              onClose();
+              if (location.pathname === '/') {
+                e.preventDefault();
+                const el = document.getElementById('contact');
+                const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                if (el) {
+                  if (lenis) lenis.scrollTo(el, { offset: -70 });
+                  else el.scrollIntoView({ behavior: 'smooth' });
+                  window.history.pushState(null, '', '#contact');
+                }
+              }
+            }} 
+            withArrow
+          >
             Get in Touch
           </Button>
 

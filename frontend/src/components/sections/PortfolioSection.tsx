@@ -43,7 +43,7 @@ export const PortfolioSection: React.FC = () => {
               key={item.id}
               className="rounded-3xl bg-[#FAFAFA] border border-slate-200/90 overflow-hidden hover:border-slate-300 hover:shadow-card transition-all duration-200 flex flex-col justify-between"
             >
-              <div className="p-7 sm:p-8">
+              <div className="p-5 sm:p-8">
                 <div className="flex items-center justify-between mb-3.5 text-xs">
                   <span className="font-mono font-bold text-[#0062E3] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
                     {item.category}

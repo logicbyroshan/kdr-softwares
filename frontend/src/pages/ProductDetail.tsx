@@ -186,7 +186,7 @@ export const ProductDetail: React.FC = () => {
                   <strong className="font-semibold text-slate-900 block mb-0.5">
                     How CardFlow Fits Into Physical Printing Operations:
                   </strong>
-                  CardFlow manages data collection, spreadsheets, photo extraction, duplicate checks, and verified exports. Agencies use CorelDRAW or external design software for physical layout and printing. Automated print-ready card generation with PrintFlow is actively on our roadmap.
+                  CardFlow manages data collection, spreadsheets, photo extraction, duplicate checks, and verified exports. Printing agencies use CorelDRAW or their preferred design software for physical card layout and printing, utilizing CardFlow's automated pre-press export bundles.
                 </div>
               </div>
               <span className="font-mono text-xs font-bold text-blue-700 bg-blue-100 px-3 py-1 rounded-full shrink-0 self-start md:self-auto">

@@ -98,7 +98,7 @@ export const About: React.FC = () => {
                   </div>
                   <div>
                     <strong className="text-slate-900 block font-semibold">1. Independent Software Products</strong>
-                    <span>Deeply specialized platforms like CardFlow, PrintFlow, and EazeFlow built to solve systemic industry friction.</span>
+                    <span>Deeply specialized platforms like CardFlow, VidyaFlow, and EazeFlow built to solve systemic industry friction.</span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

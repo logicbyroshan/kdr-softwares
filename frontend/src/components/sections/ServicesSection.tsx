@@ -142,7 +142,7 @@ export const ServicesSection: React.FC = () => {
             id={`service-panel-${current.id}`}
             role="tabpanel"
             aria-labelledby={`service-tab-${current.id}`}
-            className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-card relative"
+            className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-8 lg:p-10 border border-slate-200/90 shadow-card relative"
           >
             <div className="flex items-center justify-between pb-6 border-b border-slate-100">
               <div className="flex items-center gap-3.5">

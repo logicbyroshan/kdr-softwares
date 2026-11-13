@@ -41,9 +41,9 @@
 ## 2. Product Suite & Engineering Services
 
 ### 2.1 Software Products
-- **CardFlow**: Commercial ID card data management and production workflow platform. Manages multi-institution workspaces, dynamic custom schemas, Excel/Word data intake, embedded photo extraction, bulk photo matching, duplicate detection, and CorelDRAW pre-press exports.
-- **PrintFlow**: ID card design and printing automation platform engineered for high-density sheet imposition, barcode/QR generation, and print queue automation. *(CardFlow integration on roadmap).*
-- **EazeFlow**: Digital productivity and document utility for spreadsheet normalization, data sanitization, and secure offline-first processing.
+- **CardFlow**: Commercial ID card data management and production workflow platform. Manages client schools, dynamic custom schemas, Excel/Word data intake, embedded photo extraction, bulk photo matching, duplicate detection, and CorelDRAW pre-press exports.
+- **VidyaFlow**: Smart school and campus management system for student and staff records, daily attendance with automated SMS alerts, fee collection with printable receipts, and exam marks.
+- **EazeFlow**: Instant spreadsheet normalization, extra-space removal, document formatting, and batch data sanitization.
 
 ### 2.2 Custom Engineering Services
 - **Custom Software Development**: Enterprise workflow engines, ERP modules, bespoke management portals.
@@ -57,7 +57,7 @@
 
 | Layer | Technologies |
 | :--- | :--- |
-| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, PostCSS, React Router DOM v7, Lucide Icons, Axios |
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, Lenis Momentum Scrolling, Outfit & Plus Jakarta Sans Typography, React Router DOM, Lucide Icons, Axios |
 | **Hero Graphics** | Real-time 3D CAD Wireframe Canvas Simulation, HTML5 Video Loop Engine, Interactive Play/Pause HUD |
 | **Backend** | Python 3.11, Django 5.2, Django REST Framework 3.18, django-cors-headers, Pillow |
 | **Database** | PostgreSQL 15+ (Production) with automatic zero-config SQLite fallback for local development |

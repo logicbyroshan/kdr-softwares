@@ -9,7 +9,7 @@ const contactSchema = {
   '@type': 'ContactPage',
   '@id': 'https://kdrsoftwares.in/contact#webpage',
   'name': 'Contact KDR Softwares Engineering Desk',
-  'description': 'Inquiries for CardFlow agency licensing, PrintFlow integration, and bespoke enterprise software development.',
+  'description': 'Inquiries for CardFlow agency licensing, VidyaFlow school onboarding, and EazeFlow productivity deployments.',
   'url': 'https://kdrsoftwares.in/contact',
   'mainEntity': {
     '@type': 'ProfessionalService',
@@ -51,7 +51,7 @@ export const ContactPage: React.FC = () => {
               Get in touch with the KDR engineering desk.
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              We welcome inquiries for CardFlow agency licensing, PrintFlow integration, and bespoke enterprise software development engagements.
+              We welcome inquiries for CardFlow agency licensing, VidyaFlow school onboarding, and EazeFlow productivity deployments.
             </p>
           </div>
         </Container>

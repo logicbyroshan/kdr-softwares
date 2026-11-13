@@ -127,7 +127,7 @@ export interface FAQ {
   id: number;
   question: string;
   answer: string;
-  category: 'general' | 'products' | 'services' | 'support';
+  category: 'general' | 'products' | 'services' | 'support' | 'cardflow' | 'vidyaflow';
   category_display: string;
   display_order: number;
 }

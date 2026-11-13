@@ -28,7 +28,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           <span>{badge}</span>
         </div>
       )}
-      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-balance ${
+      <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-heading font-extrabold tracking-tight leading-[1.2] text-balance ${
         isDark ? 'text-white' : 'text-slate-900'
       }`}>
         {title}

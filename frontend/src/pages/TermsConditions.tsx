@@ -42,7 +42,7 @@ export const TermsConditions: React.FC = () => {
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-2">1. Acceptance of Terms</h2>
               <p>
-                By accessing https://kdrsoftwares.in, licensing software products developed by KDR Softwares (including CardFlow, PrintFlow, and EazeFlow), or engaging our custom software engineering services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you should discontinue use of our site and services.
+                By accessing https://kdrsoftwares.in, licensing software products developed by KDR Softwares (including CardFlow, VidyaFlow, and EazeFlow), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you should discontinue use of our site and services.
               </p>
             </div>
 
@@ -63,7 +63,7 @@ export const TermsConditions: React.FC = () => {
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-2">4. Disclaimers & Roadmap Features</h2>
               <p>
-                We strive for absolute precision in our software architecture. Features marked as "Roadmap" or "In Development" (such as automated PrintFlow rasterization or intelligent PDF interpretation) represent planned technical milestones and are not warrantied as currently deployed features until formally released.
+                We strive for absolute precision in our software architecture across all products and deployments. Commercial agreements govern specific delivery parameters, support windows, and SLAs.
               </p>
             </div>
 

@@ -36,7 +36,7 @@ export const PricingSection: React.FC = () => {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`rounded-3xl p-8 sm:p-10 border transition-all duration-200 flex flex-col justify-between ${
+              className={`rounded-3xl p-5 sm:p-8 lg:p-10 border transition-all duration-200 flex flex-col justify-between ${
                 plan.is_featured
                   ? 'bg-gradient-to-b from-blue-50/60 to-white border-[#0062E3]/40 shadow-card ring-1 ring-blue-500/20'
                   : 'bg-[#FAFAFA] border-slate-200/90 shadow-2xs hover:border-slate-300'

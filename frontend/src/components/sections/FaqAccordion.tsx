@@ -5,18 +5,53 @@ import { getFaqs } from '../../api/client';
 import { FAQ } from '../../types';
 import { ChevronDown } from 'lucide-react';
 
+const DEFAULT_FAQS: FAQ[] = [
+  {
+    id: 1,
+    question: 'How does CardFlow extract photos pasted inside Word files?',
+    answer: 'Schools often paste student photos directly into Microsoft Word tables or send them with messy filenames. CardFlow scans the Word document, extracts each high-resolution photo automatically, and matches it with the correct student roll number and name from your Excel list in seconds.',
+    category: 'cardflow',
+    category_display: 'CardFlow (For Printing)',
+    display_order: 1,
+  },
+  {
+    id: 2,
+    question: 'Does our office staff need computer training to use VidyaFlow?',
+    answer: 'No. VidyaFlow is designed with simple, clear screens in plain language. Most school office staff and teachers learn how to mark attendance, collect fees, and print fee receipts in less than 15 minutes.',
+    category: 'vidyaflow',
+    category_display: 'VidyaFlow (For Schools)',
+    display_order: 2,
+  },
+  {
+    id: 3,
+    question: 'Do we need high-end computers or expensive servers?',
+    answer: 'Not at all. Our software is engineered to run fast and light on standard office desktop PCs or laptops running Windows 10 or 11 with normal internet connectivity.',
+    category: 'general',
+    category_display: 'General & Support',
+    display_order: 3,
+  },
+  {
+    id: 4,
+    question: 'How does KDR Softwares provide customer support?',
+    answer: 'We provide direct phone and WhatsApp support from our engineering and customer desk in Indore. During busy printing or school admission months, you can call or message us directly for instant help.',
+    category: 'general',
+    category_display: 'General & Support',
+    display_order: 4,
+  },
+];
+
 export const FaqAccordion: React.FC = () => {
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [faqs, setFaqs] = useState<FAQ[]>(DEFAULT_FAQS);
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<number | null>(1);
 
   useEffect(() => {
     let isMounted = true;
     getFaqs()
       .then((data) => {
-        if (isMounted) {
+        if (isMounted && data && data.length > 0) {
           setFaqs(data);
-          if (data.length > 0) setOpenId(data[0].id);
+          setOpenId(data[0].id);
         }
       })
       .catch((err) => console.error('Failed to load FAQs', err));
@@ -27,10 +62,9 @@ export const FaqAccordion: React.FC = () => {
 
   const categories = [
     { key: 'all', label: 'All Questions' },
-    { key: 'general', label: 'General' },
-    { key: 'products', label: 'Products' },
-    { key: 'services', label: 'Services' },
-    { key: 'support', label: 'Support & Maintenance' },
+    { key: 'cardflow', label: 'CardFlow (For Printing)' },
+    { key: 'vidyaflow', label: 'VidyaFlow (For Schools)' },
+    { key: 'general', label: 'General & Support' },
   ];
 
   const filteredFaqs = activeCategory === 'all'
@@ -42,16 +76,16 @@ export const FaqAccordion: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80 relative">
+    <section id="faq" className="py-24 sm:py-28 lg:py-32 bg-[#FAFAFA] border-b border-slate-200/80 relative">
       <Container size="narrow">
         <SectionHeading
-          badge="Frequently Answered Questions"
-          title="Clear answers to common questions about our products & services."
-          description="Everything you need to know about our business areas, CardFlow's production capabilities, custom engineering, and technical support."
+          badge="Got Questions?"
+          title="Simple, clear answers to help you get started."
+          description="Everything you need to know about how our software works, how easy it is to learn, and how we support you."
           align="center"
         />
 
-        {/* Category Filter Tabs */}
+        {/* Simple Category Filter Tabs */}
         <div className="flex items-center justify-center flex-wrap gap-2 mb-10" role="tablist" aria-label="FAQ categories">
           {categories.map((cat) => (
             <button
@@ -60,10 +94,10 @@ export const FaqAccordion: React.FC = () => {
               role="tab"
               aria-selected={activeCategory === cat.key}
               onClick={() => setActiveCategory(cat.key)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] ${
                 activeCategory === cat.key
                   ? 'bg-[#0062E3] text-white shadow-sm'
-                  : 'bg-white text-slate-700 hover:text-slate-900 border border-slate-200/90 hover:bg-slate-50'
+                  : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200/90'
               }`}
             >
               {cat.label}
@@ -71,49 +105,34 @@ export const FaqAccordion: React.FC = () => {
           ))}
         </div>
 
-        {/* Accordion List */}
+        {/* FAQs List */}
         <div className="space-y-3.5">
           {filteredFaqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (
               <div
                 key={faq.id}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? 'bg-white border-[#0062E3]/40 shadow-sm ring-1 ring-blue-500/10'
-                    : 'bg-white/80 border-slate-200/90 hover:border-slate-300'
-                }`}
+                className="rounded-2xl border border-slate-200/90 bg-white shadow-2xs overflow-hidden transition-all duration-200 hover:border-slate-300"
               >
                 <button
                   type="button"
-                  id={`faq-btn-${faq.id}`}
                   onClick={() => toggleFaq(faq.id)}
                   aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${faq.id}`}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3]"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0062E3]"
                 >
-                  <span className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-bold text-[#0062E3] bg-blue-50 px-2 py-0.5 rounded border border-blue-200 shrink-0">
-                      {faq.category_display || faq.category}
-                    </span>
-                    <span>{faq.question}</span>
+                  <span className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
+                    {faq.question}
                   </span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-[#0062E3]' : ''
-                    }`}
-                    aria-hidden="true"
-                  />
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'bg-blue-50 text-[#0062E3] rotate-180' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    <ChevronDown className="w-4 h-4" aria-hidden="true" />
+                  </div>
                 </button>
 
                 {isOpen && (
-                  <div 
-                    id={`faq-answer-${faq.id}`}
-                    role="region"
-                    aria-labelledby={`faq-btn-${faq.id}`}
-                    className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 animate-in fade-in duration-150"
-                  >
-                    {faq.answer}
+                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 animate-in fade-in duration-200">
+                    <p>{faq.answer}</p>
                   </div>
                 )}
               </div>

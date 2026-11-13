@@ -4,7 +4,7 @@ import { Button } from '../components/common/Button';
 import { Badge } from '../components/common/Badge';
 import { getProducts } from '../api/client';
 import { Product } from '../types';
-import { CheckCircle2, Layers, Grid, Sparkles } from 'lucide-react';
+import { CheckCircle2, Layers, GraduationCap, Sparkles } from 'lucide-react';
 import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 
@@ -12,7 +12,7 @@ const productsHubSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   'name': 'KDR Softwares Product Suite',
-  'description': 'Purpose-built software platforms engineered for practical operations: CardFlow, PrintFlow, and EazeFlow.',
+  'description': 'Purpose-built software platforms engineered for practical operations: CardFlow, VidyaFlow, and EazeFlow.',
   'url': 'https://kdrsoftwares.in/products',
   'hasPart': [
     {
@@ -23,15 +23,15 @@ const productsHubSchema = {
     },
     {
       '@type': 'SoftwareApplication',
-      'name': 'PrintFlow',
-      'url': 'https://kdrsoftwares.in/products/printflow',
-      'applicationCategory': 'DesignApplication'
+      'name': 'VidyaFlow',
+      'url': 'https://kdrsoftwares.in/products/vidyaflow',
+      'applicationCategory': 'EducationalApplication'
     },
     {
       '@type': 'SoftwareApplication',
       'name': 'EazeFlow',
       'url': 'https://kdrsoftwares.in/products/eazeflow',
-      'applicationCategory': 'EducationalApplication'
+      'applicationCategory': 'BusinessApplication'
     }
   ]
 };
@@ -40,8 +40,8 @@ const ProductIcon: React.FC<{ slug: string; className?: string }> = ({ slug, cla
   switch (slug) {
     case 'cardflow':
       return <Layers className={className} />;
-    case 'printflow':
-      return <Grid className={className} />;
+    case 'vidyaflow':
+      return <GraduationCap className={className} />;
     case 'eazeflow':
       return <Sparkles className={className} />;
     default:
@@ -63,10 +63,10 @@ export const ProductsHub: React.FC = () => {
   return (
     <div className="pt-28 pb-20 md:pt-36 md:pb-28">
       <SEOHead
-        title="Software Products Suite — CardFlow, PrintFlow, EazeFlow | KDR Softwares"
-        description="Explore KDR Softwares' purpose-built platforms: CardFlow for bulk ID card management (100k+ processed), PrintFlow for prepress, and EazeFlow for school ERP."
+        title="Software Products Suite — CardFlow, VidyaFlow, EazeFlow | KDR Softwares"
+        description="Explore KDR Softwares' purpose-built platforms: CardFlow for bulk ID card management (100k+ processed), VidyaFlow for smart school management, and EazeFlow for document processing."
         canonicalUrl="https://kdrsoftwares.in/products"
-        keywords="CardFlow, PrintFlow, EazeFlow, software products, bulk ID card automation, school administration ERP, prepress software"
+        keywords="CardFlow, VidyaFlow, EazeFlow, software products, bulk ID card automation, school administration ERP, document utility software"
         ogType="website"
         breadcrumbs={[{ name: 'Products Suite', url: 'https://kdrsoftwares.in/products' }]}
         schema={productsHubSchema}
@@ -126,8 +126,8 @@ export const ProductsHub: React.FC = () => {
                             <h2 className={`text-2xl sm:text-3xl font-extrabold ${isCardFlow ? 'text-white' : 'text-slate-900'}`}>
                               {prod.name}
                             </h2>
-                            <Badge variant={prod.status === 'active' ? 'emerald' : 'roadmap'} size="sm">
-                              {prod.status === 'active' ? 'Production Active' : 'In Development'}
+                            <Badge variant="emerald" size="sm">
+                              Production Ready
                             </Badge>
                             {isCardFlow && (
                               <Badge variant="blue" size="sm">
@@ -161,7 +161,7 @@ export const ProductsHub: React.FC = () => {
                         {isCardFlow && (
                           <div className="p-4 rounded-xl bg-blue-950/50 border border-blue-800/60 text-xs text-blue-200 leading-relaxed">
                             <strong className="block text-blue-300 mb-1">Print Integration Notice:</strong>
-                            CardFlow manages data and production workflows. Customers use CorelDRAW or external design tools for card layout and physical printing. Integration with PrintFlow for automated print-ready rendering is on our active roadmap.
+                            CardFlow manages data and production workflows. Customers use CorelDRAW or their preferred design software for card layout and physical printing, with direct export bundles generated instantly.
                           </div>
                         )}
                       </div>

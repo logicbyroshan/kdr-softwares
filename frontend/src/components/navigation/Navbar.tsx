@@ -13,14 +13,19 @@ export const Navbar: React.FC = () => {
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const isHomePage = location.pathname === '/';
+
   // Monitor scroll state for styling
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // On homepage, the dark hero is tall (~85vh-95vh), so stay in executive dark mode until passing hero
+      const threshold = isHomePage ? 500 : 25;
+      setIsScrolled(window.scrollY > threshold);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   // Close menu and drawer synchronously on route change
   const [prevPath, setPrevPath] = useState(location.pathname);
@@ -40,41 +45,74 @@ export const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
+  const handleScrollTo = (e: React.MouseEvent, sectionId: string) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(sectionId);
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+      if (el) {
+        if (lenis) {
+          lenis.scrollTo(el, { offset: -70 });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+        window.history.pushState(null, '', `#${sectionId}`);
+      }
+    }
+  };
+
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
+    if (path === '/') return location.pathname === '/' && (!location.hash || location.hash === '#');
     return location.pathname.startsWith(path);
   };
+
+  // Stays dark, executive and solid while viewing the dark hero section on home
+  const isDarkHeader = isHomePage && !isScrolled;
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/80 py-3'
-            : 'bg-white/70 backdrop-blur-sm border-b border-slate-200/40 py-4.5'
+        className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 py-3 ${
+          isDarkHeader
+            ? 'bg-[#070D1A] border-b border-slate-800/80 text-white'
+            : isScrolled
+            ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/90 text-slate-900'
+            : 'bg-white border-b border-slate-200/80 text-slate-900'
         }`}
       >
         <Container>
           <div className="flex items-center justify-between">
             {/* Logo / Wordmark */}
-            <Link to="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-0.5">
-              <picture className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
+            <Link 
+              to="/" 
+              onClick={() => {
+                const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, options?: Record<string, unknown>) => void } }).__lenis;
+                if (lenis) {
+                  lenis.scrollTo(0, { duration: 1 });
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-0.5"
+            >
+              <picture className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center shrink-0">
                 <source srcSet="/logo.webp" type="image/webp" />
                 <img 
                   src="/logo.png" 
                   alt="KDR Softwares" 
-                  width="40"
-                  height="40"
-                  decoding="async"
-                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,98,227,0.25)] transition-transform duration-300 group-hover:scale-110" 
+                  width="38" 
+                  height="38" 
+                  decoding="async" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,132,255,0.35)] transition-transform duration-200 group-hover:scale-105" 
                 />
               </picture>
               <div className="flex flex-col">
-                <span className="font-extrabold text-slate-900 tracking-tight text-lg leading-none group-hover:text-blue-600 transition-colors">
+                <span className={`font-black tracking-tight text-lg sm:text-xl leading-none transition-colors ${
+                  isDarkHeader
+                    ? 'text-white group-hover:text-cyan-400'
+                    : 'text-slate-900 group-hover:text-[#0062E3]'
+                }`}>
                   KDR Softwares
-                </span>
-                <span className="text-[10px] font-bold text-blue-600 tracking-wider uppercase mt-1">
-                  Products & Solutions
                 </span>
               </div>
             </Link>
@@ -83,10 +121,22 @@ export const Navbar: React.FC = () => {
             <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
               <Link
                 to="/"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/') && location.pathname === '/'
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                onClick={() => {
+                  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, options?: Record<string, unknown>) => void } }).__lenis;
+                  if (lenis) {
+                    lenis.scrollTo(0, { duration: 1 });
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  isDarkHeader
+                    ? isActive('/') && (!location.hash || location.hash === '#')
+                      ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : isActive('/') && (!location.hash || location.hash === '#')
+                    ? 'text-[#0062E3] bg-blue-50/90'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                 }`}
               >
                 Home
@@ -103,81 +153,95 @@ export const Navbar: React.FC = () => {
                   type="button"
                   onClick={() => setProductsOpen(!productsOpen)}
                   aria-expanded={productsOpen}
-                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 inline-flex items-center gap-1 ${
-                    isActive('/products') || productsOpen
-                      ? 'text-blue-600 bg-blue-50/70'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 inline-flex items-center gap-1.5 ${
+                    isDarkHeader
+                      ? isActive('/products') || productsOpen
+                        ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                        : 'text-slate-200 hover:text-white hover:bg-white/10'
+                      : isActive('/products') || productsOpen
+                      ? 'text-[#0062E3] bg-blue-50/90'
+                      : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                   }`}
                 >
                   <span>Products</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {productsOpen && <MegaMenu onClose={() => setProductsOpen(false)} />}
               </div>
 
-              <Link
-                to="/services"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/services')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              <a
+                href="/#why-choose"
+                onClick={(e) => handleScrollTo(e, 'why-choose')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  isDarkHeader
+                    ? location.hash === '#why-choose'
+                      ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : location.hash === '#why-choose'
+                    ? 'text-[#0062E3] bg-blue-50/90'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                 }`}
               >
-                Services
-              </Link>
+                Why Choose Us
+              </a>
 
-              <Link
-                to="/portfolio"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/portfolio')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                Portfolio
-              </Link>
-
-              <Link
-                to="/about"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/about')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              <a
+                href="/#about"
+                onClick={(e) => handleScrollTo(e, 'about')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  isDarkHeader
+                    ? location.hash === '#about'
+                      ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : location.hash === '#about'
+                    ? 'text-[#0062E3] bg-blue-50/90'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                 }`}
               >
                 About
-              </Link>
+              </a>
 
-              <Link
-                to="/faq"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/faq')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              <a
+                href="/#faq"
+                onClick={(e) => handleScrollTo(e, 'faq')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  isDarkHeader
+                    ? location.hash === '#faq'
+                      ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : location.hash === '#faq'
+                    ? 'text-[#0062E3] bg-blue-50/90'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                 }`}
               >
                 FAQ
-              </Link>
+              </a>
 
-              <Link
-                to="/contact"
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 ${
-                  isActive('/contact')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              <a
+                href="/#contact"
+                onClick={(e) => handleScrollTo(e, 'contact')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  isDarkHeader
+                    ? location.hash === '#contact'
+                      ? 'text-cyan-300 bg-cyan-950/70 border border-cyan-800/60'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : location.hash === '#contact'
+                    ? 'text-[#0062E3] bg-blue-50/90'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
                 }`}
               >
                 Contact
-              </Link>
+              </a>
             </nav>
 
             {/* Desktop CTA & Mobile Toggle */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <Button
-                href="/contact"
+                href="/#contact"
+                onClick={(e) => handleScrollTo(e, 'contact')}
                 variant="primary"
                 size="sm"
-                className="hidden sm:inline-flex"
+                className="hidden sm:inline-flex font-bold px-4 py-2 rounded-lg text-xs sm:text-sm"
                 withArrow
               >
                 Get in Touch
@@ -186,7 +250,11 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setMobileDrawerOpen(true)}
-                className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 lg:hidden transition-colors"
+                className={`p-2.5 rounded-xl transition-colors lg:hidden focus:outline-none focus-visible:ring-2 ${
+                  isDarkHeader
+                    ? 'text-white hover:bg-white/10 focus-visible:ring-cyan-400'
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus-visible:ring-[#0062E3]'
+                }`}
                 aria-label="Open mobile navigation menu"
               >
                 <Menu className="w-6 h-6" />
@@ -204,4 +272,3 @@ export const Navbar: React.FC = () => {
     </>
   );
 };
-

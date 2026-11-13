@@ -1,16 +1,11 @@
 import React from 'react';
 import { SEOHead } from '../components/common/SEOHead';
 import { HeroSection } from '../components/sections/HeroSection';
-import { TrustSection } from '../components/sections/TrustSection';
 import { AboutSection } from '../components/sections/AboutSection';
 import { ProductsShowcase } from '../components/sections/ProductsShowcase';
-import { ServicesSection } from '../components/sections/ServicesSection';
 import { WhyChooseSection } from '../components/sections/WhyChooseSection';
 import { StatsSection } from '../components/sections/StatsSection';
-import { ProcessSection } from '../components/sections/ProcessSection';
-import { PortfolioSection } from '../components/sections/PortfolioSection';
 import { TestimonialsSection } from '../components/sections/TestimonialsSection';
-import { PricingSection } from '../components/sections/PricingSection';
 import { FaqAccordion } from '../components/sections/FaqAccordion';
 import { ContactSection } from '../components/sections/ContactSection';
 
@@ -76,65 +71,42 @@ export const Home: React.FC = () => {
         title="KDR Softwares — Software Products & Custom Technology Solutions | Indore, India"
         description="KDR Softwares builds high-performance software products like CardFlow (100k+ ID cards processed) and delivers custom software, web, mobile, and AI solutions in Indore."
         canonicalUrl="https://kdrsoftwares.in/"
-        keywords="KDR Softwares, CardFlow, PrintFlow, EazeFlow, custom software development Indore, software company Madhya Pradesh, ID card management software, CorelDRAW print automation"
+        keywords="KDR Softwares, CardFlow, VidyaFlow, EazeFlow, ID card management software, school management ERP, CorelDRAW print automation, document utility"
         ogType="website"
         ogImage="https://kdrsoftwares.in/og-image.png"
         schema={homeSchema}
       />
 
-      {/* 1. Hero Section: 5-Second Clarity & Layered Interface Preview */}
+      {/* 1. Hero Section: 5-Second Clarity & Dedicated Demo Preview */}
       <HeroSection />
 
-      {/* 2. Trust & Ecosystem Architectural Foundation */}
-      <TrustSection />
-
-      {/* 3. About KDR Softwares Editorial Narrative */}
+      {/* 2. About KDR Softwares Editorial Narrative & Philosophy */}
       <AboutSection />
 
-      {/* 4. Products Showcase (CardFlow, PrintFlow, EazeFlow) */}
+      {/* 3. Products Showcase (CardFlow, VidyaFlow, EazeFlow) */}
       <ProductsShowcase />
 
-      {/* 5. Services Section (Custom Software, Web, Mobile, AI) */}
-      <div className="section-auto-render">
-        <ServicesSection />
-      </div>
-
-      {/* 6. Why Choose KDR Softwares */}
+      {/* 4. Why Choose KDR Softwares */}
       <div className="section-auto-render">
         <WhyChooseSection />
       </div>
 
-      {/* 7. Statistics / Impact Metrics */}
+      {/* 5. Numbers That Speak For Themselves */}
       <div className="section-auto-render">
         <StatsSection />
       </div>
 
-      {/* 8. Six-Stage Development Process */}
-      <div className="section-auto-render">
-        <ProcessSection />
-      </div>
-
-      {/* 9. Portfolio Projects Gallery */}
-      <div className="section-auto-render">
-        <PortfolioSection />
-      </div>
-
-      {/* 10. Genuine Verified Testimonials */}
+      {/* 6. What Real Clients Say */}
       <div className="section-auto-render">
         <TestimonialsSection />
       </div>
 
-      {/* 11. Transparent Pricing & Milestone Proposals */}
-      <div className="section-auto-render">
-        <PricingSection />
-      </div>
-
-      {/* 12. Categorized FAQ Accordion */}
+      {/* 7. Clear & Helpful Answers (FAQ) */}
       <div className="section-auto-render">
         <FaqAccordion />
       </div>
 
-      {/* 13. Direct Contact & Consultation Booking */}
+      {/* 8. Direct Contact & Office Location */}
       <div className="section-auto-render">
         <ContactSection />
       </div>

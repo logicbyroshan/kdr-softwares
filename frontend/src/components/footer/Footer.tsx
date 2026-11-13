@@ -1,236 +1,270 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowUpRight, Heart } from 'lucide-react';
 import { Container } from '../common/Container';
 
-const CURRENT_YEAR = 2026;
-
 export const Footer: React.FC = () => {
+  const CURRENT_YEAR = new Date().getFullYear();
+
   return (
-    <footer className="bg-[#070D1A] text-slate-300 border-t border-slate-900 pt-16 pb-12 relative overflow-hidden" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">Footer</h2>
+    <footer className="bg-[#050B16] text-slate-300 pt-16 pb-12 relative overflow-hidden">
+      {/* Background Subtle Ambient Glow */}
+      <div 
+        className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" 
+        aria-hidden="true" 
+      />
 
-      {/* Background architectural glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0062E3]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0A2558]/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-
-      <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
-          {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-5">
-            <Link to="/" className="inline-flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0062E3] rounded-lg">
+      <Container className="relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12">
+          
+          {/* Column 1: Brand & Contact (4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link to="/" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-0.5">
               <picture className="w-11 h-11 flex items-center justify-center shrink-0">
                 <source srcSet="/logo.webp" type="image/webp" />
                 <img 
                   src="/logo.png" 
-                  alt="KDR Softwares" 
-                  width="44"
-                  height="44"
-                  loading="lazy"
+                  alt="KDR Softwares Logo" 
+                  width="44" 
+                  height="44" 
+                  loading="lazy" 
                   decoding="async"
                   className="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,132,255,0.35)] transition-transform duration-300 group-hover:scale-105" 
                 />
               </picture>
               <div>
-                <span className="font-extrabold text-white tracking-tight text-xl block leading-tight group-hover:text-cyan-400 transition-colors">
+                <span className="font-extrabold text-white tracking-tight text-2xl block leading-tight group-hover:text-cyan-400 transition-colors">
                   KDR Softwares
-                </span>
-                <span className="text-[11px] font-bold text-cyan-400 tracking-wider uppercase">
-                  Products & Solutions
                 </span>
               </div>
             </Link>
 
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
-              We develop practical software products like CardFlow and architect bespoke enterprise technology solutions that eliminate operational friction and accelerate growth.
+              Practical, easy-to-use software tools built for ID card printing agencies, schools, and local businesses. Made in Indore to eliminate manual headaches.
             </p>
 
-            <div className="space-y-3 pt-2 text-sm text-slate-300">
-              <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" aria-hidden="true" />
-                <div className="flex flex-col text-xs">
-                  <span className="text-slate-400 font-semibold uppercase text-[10px]">General Enquiries:</span>
-                  <a href="mailto:contact@kdrsoftwares.in" className="text-white hover:text-cyan-400 font-semibold transition-colors">
-                    contact@kdrsoftwares.in
-                  </a>
-                </div>
-              </div>
+            <div className="space-y-2.5 pt-1 text-sm text-slate-300">
+              <a 
+                href="https://wa.me/919876543210?text=Hello%20KDR%20Softwares%20team" 
+                target="_blank" 
+                rel="noreferrer"
+                className="flex items-center gap-2.5 text-sm sm:text-base text-slate-200 hover:text-emerald-400 transition-colors"
+              >
+                <Phone className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
+                <span>+91 98765 43210 (Phone &amp; WhatsApp)</span>
+              </a>
 
-              <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" aria-hidden="true" />
-                <div className="flex flex-col text-xs">
-                  <span className="text-slate-400 font-semibold uppercase text-[10px]">Technical Support:</span>
-                  <a href="mailto:support@kdrsoftwares.in" className="text-white hover:text-cyan-400 font-semibold transition-colors">
-                    support@kdrsoftwares.in
-                  </a>
-                </div>
-              </div>
+              <a 
+                href="mailto:contact@kdrsoftwares.in" 
+                className="flex items-center gap-2.5 text-sm sm:text-base text-slate-200 hover:text-cyan-400 transition-colors"
+              >
+                <Mail className="w-4 h-4 text-cyan-400 shrink-0" aria-hidden="true" />
+                <span>contact@kdrsoftwares.in</span>
+              </a>
 
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" aria-hidden="true" />
-                <div className="text-xs">
-                  <span className="text-slate-400 font-semibold uppercase text-[10px] block">Registered Office:</span>
-                  <span className="text-white font-medium">Navlakha, Indore, Madhya Pradesh, India</span>
-                </div>
+              <div className="flex items-start gap-2.5 text-sm text-slate-400">
+                <MapPin className="w-4 h-4 text-[#0062E3] shrink-0 mt-0.5" aria-hidden="true" />
+                <span>Navlakha, Indore, Madhya Pradesh, India</span>
               </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-3 pt-3">
-              <a 
-                href="https://linkedin.com/company/kdrsoftwares" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                aria-label="KDR Softwares on LinkedIn"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.53-1.53A1.53 1.53 0 0 0 6.46 5.7a1.53 1.53 0 0 0-1.53 1.53c0 .85.68 1.53 1.53 1.53m1.39 9.74v-8.37H5.07v8.37h2.78Z"/></svg>
-              </a>
-              <a 
-                href="https://x.com/kdrsoftwares" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                aria-label="KDR Softwares on X (Twitter)"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
-              <a 
-                href="https://github.com/kdrsoftwares" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                aria-label="KDR Softwares on GitHub"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
-              </a>
-              <a 
-                href="https://youtube.com/@kdrsoftwares" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 hover:border-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-                aria-label="KDR Softwares on YouTube"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-              </a>
             </div>
           </div>
 
-          {/* Column 2: Products */}
-          <div>
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Products
+          {/* Column 2: Software Products (3 cols) */}
+          <div className="lg:col-span-3">
+            <h3 className="text-sm sm:text-base font-heading font-bold text-white uppercase tracking-wider mb-4">
+              Our Products
             </h3>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-3 text-sm sm:text-base">
               <li>
-                <Link to="/products/cardflow" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span>CardFlow Platform</span>
-                  <span className="text-[10px] bg-blue-900/60 text-cyan-300 px-2 py-0.5 rounded border border-blue-700/50 font-bold">Active</span>
+                <Link to="/products/cardflow" className="hover:text-white transition-colors">
+                  CardFlow (ID Cards)
                 </Link>
               </li>
               <li>
-                <Link to="/products/printflow" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span>PrintFlow Engine</span>
-                  <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-semibold">Roadmap</span>
+                <Link to="/products/vidyaflow" className="hover:text-white transition-colors">
+                  VidyaFlow (Schools)
                 </Link>
               </li>
               <li>
-                <Link to="/products/eazeflow" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span>EazeFlow Utility</span>
-                  <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-semibold">Roadmap</span>
+                <Link to="/products/eazeflow" className="hover:text-white transition-colors">
+                  EazeFlow (File Utility)
                 </Link>
               </li>
-              <li>
-                <Link to="/products" className="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 pt-1">
-                  <span>All Products Hub</span>
+              <li className="pt-1">
+                <Link to="/products" className="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 text-sm">
+                  <span>Explore All Products</span>
                   <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Services */}
-          <div>
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Services
+          {/* Column 3: Quick Navigation (2 cols) */}
+          <div className="lg:col-span-2">
+            <h3 className="text-sm sm:text-base font-heading font-bold text-white uppercase tracking-wider mb-4">
+              Quick Links
             </h3>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-3 text-sm sm:text-base">
               <li>
-                <Link to="/services/custom-software" className="hover:text-white transition-colors">
-                  Custom Software Development
-                </Link>
+                <a 
+                  href="/#about" 
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      const el = document.getElementById('about');
+                      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                      if (el) {
+                        if (lenis) lenis.scrollTo(el, { offset: -70 });
+                        else el.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', '#about');
+                      }
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  About Us
+                </a>
               </li>
               <li>
-                <Link to="/services/web-development" className="hover:text-white transition-colors">
-                  Web Applications & SaaS
-                </Link>
+                <a 
+                  href="/#why-choose" 
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      const el = document.getElementById('why-choose');
+                      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                      if (el) {
+                        if (lenis) lenis.scrollTo(el, { offset: -70 });
+                        else el.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', '#why-choose');
+                      }
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Why Choose Us
+                </a>
               </li>
               <li>
-                <Link to="/services/mobile-apps" className="hover:text-white transition-colors">
-                  Mobile Application Engineering
-                </Link>
+                <a 
+                  href="/#faq" 
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      const el = document.getElementById('faq');
+                      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                      if (el) {
+                        if (lenis) lenis.scrollTo(el, { offset: -70 });
+                        else el.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', '#faq');
+                      }
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Questions &amp; FAQ
+                </a>
               </li>
               <li>
-                <Link to="/services/ai-solutions" className="hover:text-white transition-colors">
-                  AI & Intelligent Document OCR
-                </Link>
-              </li>
-              <li>
-                <Link to="/services" className="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1 pt-1">
-                  <span>Services Overview</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-                </Link>
+                <a 
+                  href="/#contact" 
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      const el = document.getElementById('contact');
+                      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                      if (el) {
+                        if (lenis) lenis.scrollTo(el, { offset: -70 });
+                        else el.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', '#contact');
+                      }
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Contact Us
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Company & Legal */}
-          <div>
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Company
+          {/* Column 4: Help & Legal (3 cols) */}
+          <div className="lg:col-span-3">
+            <h3 className="text-sm sm:text-base font-heading font-bold text-white uppercase tracking-wider mb-4">
+              Assistance &amp; Policies
             </h3>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-3 text-sm sm:text-base">
               <li>
-                <Link to="/about" className="hover:text-white transition-colors">
-                  About KDR
-                </Link>
+                <a 
+                  href="https://wa.me/919876543210?text=Hello%20KDR%20Softwares,%20I%20want%20to%20request%20a%20demo" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="hover:text-emerald-400 transition-colors flex items-center gap-1"
+                >
+                  <span>Request a Quick Demo</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                </a>
               </li>
               <li>
-                <Link to="/portfolio" className="hover:text-white transition-colors">
-                  Selected Work
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-white transition-colors">
-                  Frequently Asked Questions
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-white transition-colors">
-                  Contact & Consultations
-                </Link>
+                <a 
+                  href="/#contact" 
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      const el = document.getElementById('contact');
+                      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement, options?: Record<string, unknown>) => void } }).__lenis;
+                      if (el) {
+                        if (lenis) lenis.scrollTo(el, { offset: -70 });
+                        else el.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', '#contact');
+                      }
+                    }
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Customer Support Desk
+                </a>
               </li>
               <li className="pt-2 border-t border-slate-800">
-                <Link to="/privacy" className="text-xs text-slate-400 hover:text-slate-200 transition-colors block">
+                <Link to="/privacy" className="text-sm text-slate-400 hover:text-slate-200 transition-colors block">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-xs text-slate-400 hover:text-slate-200 transition-colors block">
-                  Terms & Conditions
+                <Link to="/terms" className="text-sm text-slate-400 hover:text-slate-200 transition-colors block">
+                  Terms &amp; Conditions
                 </Link>
               </li>
             </ul>
           </div>
-        </div>
 
+        </div>
+      </Container>
+
+      {/* Full-Bleed Signature Brand Wordmark (Spans edge-to-edge + Top part transparent fade) */}
+      <div className="w-full pt-6 sm:pt-10 pb-2 overflow-hidden select-none pointer-events-none flex items-center justify-center">
+        <span 
+          className="text-center text-[9.5vw] sm:text-[10.2vw] md:text-[10.8vw] lg:text-[11.2vw] font-black tracking-tight leading-none uppercase select-none font-heading whitespace-nowrap block"
+          style={{
+            WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.35)',
+            color: 'transparent',
+            WebkitTextFillColor: 'transparent',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 1) 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 1) 100%)',
+          }}
+        >
+          KDR SOFTWARES
+        </span>
+      </div>
+
+      <Container className="relative z-10">
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <p>© {CURRENT_YEAR} KDR Softwares. All rights reserved. Registered in Indore, Madhya Pradesh, India.</p>
+        <div className="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-sm text-slate-400 gap-4">
+          <p>© {CURRENT_YEAR} KDR Softwares. All rights reserved. Navlakha, Indore, Madhya Pradesh, India.</p>
           <div className="flex items-center gap-6">
             <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
-            <Link to="/faq" className="hover:text-slate-300 transition-colors">FAQs</Link>
+            <a href="/#faq" className="hover:text-slate-300 transition-colors">FAQs</a>
           </div>
         </div>
       </Container>

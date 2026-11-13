@@ -241,35 +241,33 @@ export const Footer: React.FC = () => {
         </div>
       </Container>
 
-      {/* Full-Bleed Signature Brand Wordmark (Takes exact full width of website, flawless outline with zero intersection lines) */}
+      {/* Full-Bleed Signature Brand Wordmark (Filled, bold modern typography with zero outline) */}
       <div className="w-full pt-8 sm:pt-12 pb-4 overflow-hidden select-none pointer-events-none">
         <svg 
-          viewBox="0 0 1440 160" 
+          viewBox="0 0 1440 140" 
           width="100%" 
           height="auto" 
           preserveAspectRatio="xMidYMid meet" 
           className="w-full block overflow-visible select-none pointer-events-none"
         >
           <defs>
-            <linearGradient id="footerTextFade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.25" />
-              <stop offset="75%" stopColor="#ffffff" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#ffffff" stopOpacity="1" />
+            <linearGradient id="footerTextFilledFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.04" />
+              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.18" />
+              <stop offset="75%" stopColor="#ffffff" stopOpacity="0.38" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.55" />
             </linearGradient>
           </defs>
           <text
             x="50%"
             y="78%"
             textAnchor="middle"
-            fill="transparent"
-            stroke="url(#footerTextFade)"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
+            fill="url(#footerTextFilledFade)"
             style={{
-              fontFamily: "'Bebas Neue', 'Outfit', sans-serif",
-              fontSize: '160px',
-              letterSpacing: '0.065em',
+              fontFamily: "'Outfit', 'Plus Jakarta Sans', sans-serif",
+              fontWeight: 900,
+              fontSize: '136px',
+              letterSpacing: '0.045em',
               textTransform: 'uppercase',
             }}
           >

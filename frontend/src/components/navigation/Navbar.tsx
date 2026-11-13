@@ -40,7 +40,7 @@ const BrandTypewriter: React.FC<{ isDarkHeader: boolean }> = ({ isDarkHeader }) 
   }, [displayText, isDeleting]);
 
   return (
-    <span className={`font-black font-heading tracking-tight text-lg sm:text-xl leading-none transition-colors inline-flex items-center ${
+    <span className={`font-black font-heading tracking-tight text-lg sm:text-xl leading-none transition-colors inline-flex items-center whitespace-nowrap overflow-hidden ${
       isDarkHeader
         ? 'text-white group-hover:text-cyan-300'
         : 'text-slate-900 group-hover:text-[#0062E3]'
@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
       >
         <Container>
           <div className="flex items-center justify-between">
-            {/* Logo / Wordmark */}
+            {/* Logo / Wordmark with fixed width so typing animation never shifts the navigation items */}
             <Link 
               to="/" 
               onClick={() => {
@@ -140,7 +140,7 @@ export const Navbar: React.FC = () => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-0.5"
+              className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-0.5 shrink-0"
             >
               <picture className="w-9 h-9 sm:w-9.5 sm:h-9.5 flex items-center justify-center shrink-0">
                 <source srcSet="/logo.webp" type="image/webp" />
@@ -153,7 +153,7 @@ export const Navbar: React.FC = () => {
                   className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,132,255,0.35)] transition-transform duration-200 group-hover:scale-105" 
                 />
               </picture>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-[145px] sm:w-[170px] shrink-0">
                 <BrandTypewriter isDarkHeader={isDarkHeader} />
               </div>
             </Link>

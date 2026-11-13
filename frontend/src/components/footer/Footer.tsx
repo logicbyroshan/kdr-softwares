@@ -244,7 +244,7 @@ export const Footer: React.FC = () => {
       {/* Full-Bleed Signature Brand Wordmark (Spans edge-to-edge + Top part transparent fade) */}
       <div className="w-full pt-6 sm:pt-10 pb-2 overflow-hidden select-none pointer-events-none flex items-center justify-center">
         <span 
-          className="text-center text-[9.5vw] sm:text-[10.2vw] md:text-[10.8vw] lg:text-[11.2vw] font-black tracking-tight leading-none uppercase select-none font-heading whitespace-nowrap block"
+          className="text-center text-[8.5vw] sm:text-[9.2vw] md:text-[9.8vw] lg:text-[10.2vw] font-extrabold tracking-tight leading-none uppercase select-none font-wordmark whitespace-nowrap block"
           style={{
             WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.35)',
             color: 'transparent',

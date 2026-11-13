@@ -33,26 +33,26 @@
     }
   }
 
-  /* Custom scrollbar */
+  /* Completely hide browser scrollbar while preserving full smooth scrolling functionality */
+  html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #F1F5F9;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
+    display: none;
+    width: 0;
+    height: 0;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  /* Architectural subtle micro-dot texture for light sections */
+  .bg-texture-light {
+    background-image: radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.04) 1px, transparent 0);
+    background-size: 24px 24px;
   }
   .bg-grid {
     background-size: 32px 32px;

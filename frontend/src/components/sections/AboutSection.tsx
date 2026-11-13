@@ -6,11 +6,11 @@ import { CheckCircle2, HeartHandshake, PhoneCall } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="pt-20 sm:pt-24 lg:pt-28 pb-20 sm:pb-24 lg:pb-28 bg-[#FAFAFA] border-b border-slate-200/80 relative overflow-hidden">
+    <section id="about" className="pt-20 sm:pt-24 lg:pt-28 pb-20 sm:pb-24 lg:pb-28 bg-[#FAFAFA] bg-texture-light border-b border-slate-200/80 relative overflow-hidden">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Simple & Clear Words for Everyday Clients */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-6 space-y-6">
             <SectionHeading
               badge="About KDR Softwares"
               title={
@@ -25,10 +25,10 @@ export const AboutSection: React.FC = () => {
               Most software in the market is either too complicated, full of confusing settings, or requires months of training. At KDR Softwares, we do the exact opposite: we build straightforward tools like <strong className="text-slate-900 font-semibold">CardFlow</strong> and <strong className="text-slate-900 font-semibold">VidyaFlow</strong> that your office or shop staff can start using in just a few minutes, saving days of manual work and stopping costly errors.
             </p>
 
-            {/* Simple Value Pillars */}
+            {/* Simple Value Pillars (Clean, non-colorful hover) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-              <div className="group p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#0062E3] flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" aria-hidden="true">
+              <div className="group p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+                <div className="w-8 h-8 rounded-lg bg-slate-100 text-[#0062E3] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform duration-200" aria-hidden="true">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
                 <h4 className="font-bold text-slate-900 text-sm">Handles Messy Real Data</h4>
@@ -37,8 +37,8 @@ export const AboutSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="group p-4 rounded-xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-400 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300" aria-hidden="true">
+              <div className="group p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+                <div className="w-8 h-8 rounded-lg bg-slate-100 text-[#0062E3] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform duration-200" aria-hidden="true">
                   <PhoneCall className="w-4 h-4" />
                 </div>
                 <h4 className="font-bold text-slate-900 text-sm">Direct Phone & WhatsApp Help</h4>
@@ -73,17 +73,19 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Clean standalone PNG visual (No box, no card frame) */}
-          <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="relative w-full max-w-lg flex items-center justify-center">
+          {/* Right Column: Enlarged High-Contrast Standalone PNG visual */}
+          <div className="lg:col-span-6 flex items-center justify-center relative">
+            {/* Ambient backlight glow to give crisp contrast against background */}
+            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+            <div className="relative w-full max-w-xl xl:max-w-2xl flex items-center justify-center p-2">
               <img
                 src="/philosophy.png"
-                alt="KDR Softwares System Design"
-                width="600"
-                height="400"
+                alt="KDR Softwares System Architecture"
+                width="720"
+                height="480"
                 loading="lazy"
                 decoding="async"
-                className="w-full h-auto object-contain filter drop-shadow-[0_12px_32px_rgba(0,98,227,0.14)] animate-float hover:scale-[1.03] transition-transform duration-500"
+                className="w-full h-auto object-contain filter drop-shadow-[0_16px_36px_rgba(0,98,227,0.18)] hover:scale-[1.02] transition-transform duration-300"
               />
             </div>
           </div>

@@ -76,7 +76,7 @@ export const FaqAccordion: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 sm:py-28 lg:py-32 bg-[#FAFAFA] border-b border-slate-200/80 relative">
+    <section id="faq" className="py-20 sm:py-24 lg:py-28 bg-[#FAFAFA] bg-texture-light border-b border-slate-200/80 relative">
       <Container size="narrow">
         <SectionHeading
           badge="Got Questions?"

@@ -244,7 +244,7 @@ export const Footer: React.FC = () => {
       {/* Full-Bleed Signature Brand Wordmark (Takes exact full width of website, flawless outline with zero intersection lines) */}
       <div className="w-full pt-8 sm:pt-12 pb-4 overflow-hidden select-none pointer-events-none">
         <svg 
-          viewBox="0 0 1440 140" 
+          viewBox="0 0 1440 160" 
           width="100%" 
           height="auto" 
           preserveAspectRatio="xMidYMid meet" 
@@ -253,24 +253,23 @@ export const Footer: React.FC = () => {
           <defs>
             <linearGradient id="footerTextFade" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.2" />
-              <stop offset="75%" stopColor="#ffffff" stopOpacity="0.8" />
+              <stop offset="35%" stopColor="#ffffff" stopOpacity="0.25" />
+              <stop offset="75%" stopColor="#ffffff" stopOpacity="0.85" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="1" />
             </linearGradient>
           </defs>
           <text
             x="50%"
-            y="76%"
+            y="78%"
             textAnchor="middle"
             fill="transparent"
             stroke="url(#footerTextFade)"
             strokeWidth="2.5"
             strokeLinejoin="round"
             style={{
-              fontFamily: "'Outfit', 'Plus Jakarta Sans', sans-serif",
-              fontWeight: 900,
-              fontSize: '136px',
-              letterSpacing: '0.045em',
+              fontFamily: "'Bebas Neue', 'Outfit', sans-serif",
+              fontSize: '160px',
+              letterSpacing: '0.065em',
               textTransform: 'uppercase',
             }}
           >

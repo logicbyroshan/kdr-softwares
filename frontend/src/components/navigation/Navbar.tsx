@@ -6,6 +6,53 @@ import { Button } from '../common/Button';
 import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
 
+// Typing effect for KDR Softwares brand wordmark
+const BrandTypewriter: React.FC<{ isDarkHeader: boolean }> = ({ isDarkHeader }) => {
+  const fullText = "KDR Softwares";
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const len = displayText.length;
+
+    if (!isDeleting) {
+      if (len < fullText.length) {
+        timer = setTimeout(() => {
+          setDisplayText(fullText.slice(0, len + 1));
+        }, 110);
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 5000);
+      }
+    } else {
+      if (len > 3) {
+        timer = setTimeout(() => {
+          setDisplayText(fullText.slice(0, len - 1));
+        }, 60);
+      } else {
+        setIsDeleting(false);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting]);
+
+  return (
+    <span className={`font-black font-heading tracking-tight text-lg sm:text-xl leading-none transition-colors inline-flex items-center ${
+      isDarkHeader
+        ? 'text-white group-hover:text-cyan-300'
+        : 'text-slate-900 group-hover:text-[#0062E3]'
+    }`}>
+      <span>{displayText || "KDR Softwares"}</span>
+      <span className={`ml-0.5 inline-block w-[2px] h-[1em] ${
+        isDarkHeader ? 'bg-cyan-400' : 'bg-[#0062E3]'
+      } animate-pulse`} aria-hidden="true" />
+    </span>
+  );
+};
+
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
@@ -107,13 +154,7 @@ export const Navbar: React.FC = () => {
                 />
               </picture>
               <div className="flex flex-col">
-                <span className={`font-black tracking-tight text-lg sm:text-xl leading-none transition-colors ${
-                  isDarkHeader
-                    ? 'text-white group-hover:text-cyan-400'
-                    : 'text-slate-900 group-hover:text-[#0062E3]'
-                }`}>
-                  KDR Softwares
-                </span>
+                <BrandTypewriter isDarkHeader={isDarkHeader} />
               </div>
             </Link>
 

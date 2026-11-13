@@ -19,12 +19,8 @@ export const ProductsShowcase: React.FC = () => {
       tagline: 'Process Thousands of ID Cards Without Errors',
       description: 'Handles all your client schools in one place. Automatically extracts photos from Word files, checks for duplicate roll numbers, and exports files ready for CorelDRAW printing.',
       slug: 'cardflow',
-      logoGradient: 'from-blue-600 to-indigo-700',
-      logoText: 'CF',
       icon: Layers,
-      accentBorder: 'hover:border-blue-500/60',
-      badge: 'ID Printing Tool',
-      badgeClass: 'bg-blue-50 text-blue-700 border-blue-200',
+      badge: 'ID Card System',
       capabilities: [
         'Import messy Excel & Word files from schools',
         'Auto photo extraction & student matching',
@@ -40,12 +36,8 @@ export const ProductsShowcase: React.FC = () => {
       tagline: 'Complete School & Campus Management',
       description: 'A single, simple system for student admissions, daily attendance with automated SMS to parents, fee collection with instant receipts, and easy report cards.',
       slug: 'vidyaflow',
-      logoGradient: 'from-teal-500 to-emerald-700',
-      logoText: 'VF',
       icon: GraduationCap,
-      accentBorder: 'hover:border-teal-500/60',
       badge: 'School ERP',
-      badgeClass: 'bg-teal-50 text-teal-700 border-teal-200',
       capabilities: [
         'Student & staff records in one place',
         'Daily attendance with parent SMS alerts',
@@ -61,12 +53,8 @@ export const ProductsShowcase: React.FC = () => {
       tagline: 'Clean & Fix Messy Spreadsheets Fast',
       description: 'Fixes broken Excel files, removes unnecessary spaces, corrects text mistakes, and formats messy tables in seconds without manual retyping.',
       slug: 'eazeflow',
-      logoGradient: 'from-indigo-600 to-violet-700',
-      logoText: 'EF',
       icon: Sparkles,
-      accentBorder: 'hover:border-indigo-500/60',
       badge: 'Excel & Data Utility',
-      badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200',
       capabilities: [
         'Fixes messy Excel sheets in one click',
         'Cleans extra spaces & broken text',
@@ -78,7 +66,7 @@ export const ProductsShowcase: React.FC = () => {
   ];
 
   return (
-    <section id="products" className="py-24 sm:py-28 lg:py-32 bg-white border-b border-slate-200/80 relative">
+    <section id="products" className="py-20 sm:py-24 lg:py-28 bg-white bg-texture-light border-b border-slate-200/80 relative">
       <Container>
         <SectionHeading
           badge="Our Software Products"
@@ -94,21 +82,15 @@ export const ProductsShowcase: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`group rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-2 ${item.accentBorder} transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-7 relative`}
+                className="group rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between overflow-hidden p-6 sm:p-7 relative"
               >
-                {/* Top Subtle Ambient Stripe */}
-                <div 
-                  className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${item.logoGradient} opacity-80 group-hover:opacity-100 group-hover:h-1.5 transition-all duration-300`} 
-                  aria-hidden="true" 
-                />
-
                 <div>
                   {/* Header: Product Logo slot + Badge */}
                   <div className="flex items-center justify-between pb-5 border-b border-slate-100">
                     {/* Dedicated Place for Product Logo */}
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.logoGradient} text-white flex items-center justify-center font-bold font-mono shadow-md shadow-slate-200 shrink-0 group-hover:scale-110 group-hover:rotate-2 transition-transform duration-300`}>
-                        <Icon className="w-6 h-6" aria-hidden="true" />
+                      <div className="w-11 h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold shadow-xs shrink-0 group-hover:bg-[#0062E3] transition-colors duration-200">
+                        <Icon className="w-5 h-5" aria-hidden="true" />
                       </div>
                       <div>
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
@@ -120,14 +102,14 @@ export const ProductsShowcase: React.FC = () => {
                       </div>
                     </div>
 
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${item.badgeClass}`}>
+                    <span className="text-[11px] font-semibold text-slate-700 bg-slate-100/90 border border-slate-200/90 px-2.5 py-0.5 rounded-full shadow-2xs">
                       {item.badge}
                     </span>
                   </div>
 
-                  {/* Tagline */}
+                  {/* Tagline & Description */}
                   <div className="pt-4">
-                    <p className="text-xs font-semibold text-slate-800">
+                    <p className="text-xs font-bold text-slate-800">
                       {item.tagline}
                     </p>
                     <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
@@ -152,13 +134,13 @@ export const ProductsShowcase: React.FC = () => {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-7 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="mt-7 pt-4 border-t border-slate-100">
                   <Button
                     href={`/products/${item.slug}`}
                     variant="outline"
                     size="sm"
                     withArrow
-                    className="w-full font-semibold justify-between group-hover:border-[#0062E3] group-hover:text-[#0062E3]"
+                    className="w-full font-semibold justify-between group-hover:border-slate-400 group-hover:text-slate-900"
                   >
                     <span>{item.ctaText}</span>
                   </Button>

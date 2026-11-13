@@ -62,7 +62,7 @@ export const TestimonialsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 sm:py-28 lg:py-32 bg-[#FAFAFA] border-b border-slate-200/80 relative">
+    <section className="py-20 sm:py-24 lg:py-28 bg-[#FAFAFA] bg-texture-light border-b border-slate-200/80 relative">
       <Container>
         <SectionHeading
           badge="Real Client Stories"
@@ -75,7 +75,7 @@ export const TestimonialsSection: React.FC = () => {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="group rounded-2xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+              className="group rounded-2xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-slate-300 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
             >
               <div>
                 {/* 5-Star Rating & Badge */}
